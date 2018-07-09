@@ -32,7 +32,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <ostream>
 #include <vector>
 
@@ -57,9 +57,9 @@ namespace IBAMR
 
 StaggeredStokesSolver::StaggeredStokesSolver()
     : d_U_problem_coefs("U_problem_coefs"),
-      d_default_U_bc_coef(new LocationIndexRobinBcCoefs<NDIM>("default_U_bc_coef", Pointer<Database>(NULL))),
+      d_default_U_bc_coef(new LocationIndexRobinBcCoefs<NDIM>("default_U_bc_coef", Pointer<Database>(nullptr))),
       d_U_bc_coefs(std::vector<RobinBcCoefStrategy<NDIM>*>(NDIM, d_default_U_bc_coef)),
-      d_default_P_bc_coef(new LocationIndexRobinBcCoefs<NDIM>("default_P_bc_coef", Pointer<Database>(NULL))),
+      d_default_P_bc_coef(new LocationIndexRobinBcCoefs<NDIM>("default_P_bc_coef", Pointer<Database>(nullptr))),
       d_P_bc_coef(d_default_P_bc_coef)
 {
     // Set some default values.
@@ -89,9 +89,9 @@ StaggeredStokesSolver::StaggeredStokesSolver()
 StaggeredStokesSolver::~StaggeredStokesSolver()
 {
     delete d_default_U_bc_coef;
-    d_default_U_bc_coef = NULL;
+    d_default_U_bc_coef = nullptr;
     delete d_default_P_bc_coef;
-    d_default_P_bc_coef = NULL;
+    d_default_P_bc_coef = nullptr;
     return;
 } // ~StaggeredStokesSolver()
 

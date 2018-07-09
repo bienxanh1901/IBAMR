@@ -32,8 +32,8 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
 #include <algorithm>
+#include <cstddef>
 #include <deque>
 #include <map>
 #include <ostream>
@@ -126,10 +126,10 @@ AdvDiffPredictorCorrectorHierarchyIntegrator::AdvDiffPredictorCorrectorHierarchy
     Pointer<AdvectorExplicitPredictorPatchOps> explicit_predictor,
     bool register_for_restart)
     : AdvDiffHierarchyIntegrator(object_name, input_db, register_for_restart),
-      d_hyp_level_integrator(NULL),
-      d_hyp_level_integrator_db(NULL),
-      d_hyp_patch_ops(NULL),
-      d_hyp_patch_ops_db(NULL),
+      d_hyp_level_integrator(nullptr),
+      d_hyp_level_integrator_db(nullptr),
+      d_hyp_patch_ops(nullptr),
+      d_hyp_patch_ops_db(nullptr),
       d_explicit_predictor(explicit_predictor)
 {
 #if !defined(NDEBUG)

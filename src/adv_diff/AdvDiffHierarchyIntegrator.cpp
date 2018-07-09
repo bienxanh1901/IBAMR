@@ -33,12 +33,12 @@
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
 #include <algorithm>
+#include <cstddef>
 #include <deque>
 #include <iterator>
 #include <limits>
 #include <map>
 #include <ostream>
-#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -170,13 +170,7 @@ static const bool CONSISTENT_TYPE_2_BDRY = false;
 static const int ADV_DIFF_HIERARCHY_INTEGRATOR_VERSION = 3;
 
 // Function to reset variables registered by this integrator
-typedef void (*ResetPropertiesFcnPtr)(int property_idx,
-                                      Pointer<HierarchyMathOps> hier_math_ops,
-                                      int integrator_step,
-                                      double time,
-                                      bool initial_time,
-                                      bool regrid_time,
-                                      void* ctx);
+using ResetPropertiesFcnPtr = void (*)(int, Pointer<HierarchyMathOps>, int, double, bool, bool, void*);
 } // namespace
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -226,7 +220,7 @@ AdvDiffHierarchyIntegrator::registerAdvectionVelocity(Pointer<FaceVariable<NDIM,
 
     // Set default values.
     d_u_is_div_free[u_var] = true;
-    d_u_fcn[u_var] = NULL;
+    d_u_fcn[u_var] = nullptr;
     return;
 } // registerAdvectionVelocity
 
@@ -280,7 +274,7 @@ AdvDiffHierarchyIntegrator::registerSourceTerm(Pointer<CellVariable<NDIM, double
     d_F_var.push_back(F_var);
 
     // Set default values.
-    d_F_fcn[F_var] = NULL;
+    d_F_fcn[F_var] = nullptr;
     return;
 } // registerSourceTerm
 
@@ -338,19 +332,19 @@ AdvDiffHierarchyIntegrator::registerTransportedQuantity(Pointer<CellVariable<NDI
         new CellVariable<NDIM, double>(Q_var->getName() + "::Q_rhs", Q_depth);
 
     // Set default values.
-    d_Q_u_map[Q_var] = NULL;
-    d_Q_F_map[Q_var] = NULL;
+    d_Q_u_map[Q_var] = nullptr;
+    d_Q_F_map[Q_var] = nullptr;
     d_Q_rhs_var.push_back(Q_rhs_var);
     d_Q_Q_rhs_map[Q_var] = Q_rhs_var;
     d_Q_diffusion_time_stepping_type[Q_var] = d_default_diffusion_time_stepping_type;
     d_Q_difference_form[Q_var] = d_default_convective_difference_form;
     d_Q_diffusion_coef[Q_var] = 0.0;
-    d_Q_diffusion_coef_variable[Q_var] = NULL;
+    d_Q_diffusion_coef_variable[Q_var] = nullptr;
     d_Q_is_diffusion_coef_variable[Q_var] = false;
     d_Q_damping_coef[Q_var] = 0.0;
-    d_Q_init[Q_var] = NULL;
+    d_Q_init[Q_var] = nullptr;
     d_Q_bc_coef[Q_var] =
-        std::vector<RobinBcCoefStrategy<NDIM>*>(Q_depth, static_cast<RobinBcCoefStrategy<NDIM>*>(NULL));
+        std::vector<RobinBcCoefStrategy<NDIM>*>(Q_depth, static_cast<RobinBcCoefStrategy<NDIM>*>(nullptr));
     d_Q_reset_priority.push_back(std::numeric_limits<int>::max());
     return;
 } // registerTransportedQuantity
@@ -463,7 +457,7 @@ AdvDiffHierarchyIntegrator::setDiffusionCoefficient(Pointer<CellVariable<NDIM, d
         d_diffusion_coef_fcn.erase(D_var);
         d_diffusion_coef_rhs_map.erase(D_var);
         // set a null entry in the map for variable diffusion coefficients.
-        d_Q_diffusion_coef_variable[Q_var] = NULL;
+        d_Q_diffusion_coef_variable[Q_var] = nullptr;
     }
     return;
 } // setDiffusionCoefficient
@@ -492,7 +486,7 @@ AdvDiffHierarchyIntegrator::registerDiffusionCoefficientVariable(Pointer<SideVar
         new SideVariable<NDIM, double>(D_var->getName() + "::D_rhs", D_depth);
 
     // Set default values.
-    d_diffusion_coef_fcn[D_var] = NULL;
+    d_diffusion_coef_fcn[D_var] = nullptr;
     d_diffusion_coef_rhs_map[D_var] = D_rhs_var;
     // Also register D_rhs_var
     d_diffusion_coef_rhs_var.push_back(D_rhs_var);
@@ -961,8 +955,8 @@ AdvDiffHierarchyIntegrator::AdvDiffHierarchyIntegrator(const std::string& object
       d_Q_damping_coef(),
       d_Q_init(),
       d_Q_bc_coef(),
-      d_hier_cc_data_ops(NULL),
-      d_hier_sc_data_ops(NULL),
+      d_hier_cc_data_ops(nullptr),
+      d_hier_sc_data_ops(nullptr),
       d_sol_vecs(),
       d_rhs_vecs(),
       d_helmholtz_solver_type(CCPoissonSolverManager::UNDEFINED),
@@ -1118,7 +1112,7 @@ AdvDiffHierarchyIntegrator::resetHierarchyConfigurationSpecialized(
         const int Q_scratch_idx = var_db->mapVariableAndContextToIndex(Q_var, getScratchContext());
 
         // Setup the interpolation transaction information.
-        typedef HierarchyGhostCellInterpolation::InterpolationTransactionComponent InterpolationTransactionComponent;
+        using InterpolationTransactionComponent = HierarchyGhostCellInterpolation::InterpolationTransactionComponent;
         InterpolationTransactionComponent transaction_comp(Q_scratch_idx,
                                                            DATA_REFINE_TYPE,
                                                            USE_CF_INTERPOLATION,

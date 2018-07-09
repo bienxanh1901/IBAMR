@@ -32,8 +32,8 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
 #include <algorithm>
+#include <cstddef>
 #include <numeric>
 #include <ostream>
 #include <set>
@@ -237,9 +237,9 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelMACStokesOp(
                         PETSC_DETERMINE,
                         PETSC_DETERMINE,
                         0,
-                        nlocal ? &d_nnz[0] : NULL,
+                        nlocal ? &d_nnz[0] : nullptr,
                         0,
-                        nlocal ? &o_nnz[0] : NULL,
+                        nlocal ? &o_nnz[0] : nullptr,
                         &mat);
     IBTK_CHKERRQ(ierr);
 
@@ -377,7 +377,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelMACStokesOp(
                     extended_bc_coef->setHomogeneousBc(homogeneous_bc);
                 }
                 u_bc_coefs[axis]->setBcCoefs(
-                    acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+                    acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
                 if (gcoef_data && homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
                 // Restore the original patch geometry object.
@@ -480,7 +480,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelMACStokesOp(
                     extended_bc_coef->setHomogeneousBc(homogeneous_bc);
                 }
                 u_bc_coefs[axis]->setBcCoefs(
-                    acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+                    acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
                 if (gcoef_data && homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
                 // Modify the matrix coefficients to account for homogeneous
@@ -652,7 +652,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelASMSubdomains(std::vector<s
     // Synchronize the patch number at patch boundaries to determine which patch
     // owns a given DOF along patch boundaries.
     RefineAlgorithm<NDIM> bdry_synch_alg;
-    bdry_synch_alg.registerRefine(patch_num_idx, patch_num_idx, patch_num_idx, NULL, new SideSynchCopyFillPattern());
+    bdry_synch_alg.registerRefine(patch_num_idx, patch_num_idx, patch_num_idx, nullptr, new SideSynchCopyFillPattern());
     bdry_synch_alg.createSchedule(patch_level)->fillData(0.0);
 
     // For a single patch in a periodic domain, the far side DOFs are not master.
@@ -903,7 +903,7 @@ StaggeredStokesPETScMatUtilities::constructProlongationOp(Mat& mat,
                                                           const int p_coarse_ao_offset)
 {
     int ierr;
-    Mat p_prolong_mat = NULL;
+    Mat p_prolong_mat = nullptr;
     PETScMatUtilities::constructProlongationOp(mat,
                                                u_op_type,
                                                u_dof_index_idx,

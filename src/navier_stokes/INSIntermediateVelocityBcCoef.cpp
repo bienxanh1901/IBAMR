@@ -32,7 +32,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <limits>
 #include <ostream>
 #include <vector>
@@ -70,7 +70,7 @@ namespace IBAMR
 INSIntermediateVelocityBcCoef::INSIntermediateVelocityBcCoef(const int comp_idx,
                                                              const std::vector<RobinBcCoefStrategy<NDIM>*>& bc_coefs,
                                                              const bool homogeneous_bc)
-    : d_comp_idx(comp_idx), d_bc_coefs(NDIM, static_cast<RobinBcCoefStrategy<NDIM>*>(NULL))
+    : d_comp_idx(comp_idx), d_bc_coefs(NDIM, static_cast<RobinBcCoefStrategy<NDIM>*>(nullptr))
 {
     setPhysicalBcCoefs(bc_coefs);
     setHomogeneousBc(homogeneous_bc);

@@ -32,7 +32,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <ostream>
 #include <string>
@@ -72,7 +72,7 @@ const std::string INSCollocatedConvectiveOperatorManager::CENTERED = "CENTERED";
 const std::string INSCollocatedConvectiveOperatorManager::PPM = "PPM";
 const std::string INSCollocatedConvectiveOperatorManager::WAVE_PROP = "WAVE_PROP";
 
-INSCollocatedConvectiveOperatorManager* INSCollocatedConvectiveOperatorManager::s_operator_manager_instance = NULL;
+INSCollocatedConvectiveOperatorManager* INSCollocatedConvectiveOperatorManager::s_operator_manager_instance = nullptr;
 bool INSCollocatedConvectiveOperatorManager::s_registered_callback = false;
 unsigned char INSCollocatedConvectiveOperatorManager::s_shutdown_priority = 200;
 
@@ -95,7 +95,7 @@ void
 INSCollocatedConvectiveOperatorManager::freeManager()
 {
     delete s_operator_manager_instance;
-    s_operator_manager_instance = NULL;
+    s_operator_manager_instance = nullptr;
     return;
 } // freeManager
 

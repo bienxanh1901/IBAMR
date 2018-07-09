@@ -81,12 +81,12 @@ AdvDiffWavePropConvectiveOperator::AdvDiffWavePropConvectiveOperator(
     Pointer<CellVariable<NDIM, double> > Q_var,
     Pointer<Database> /*input_db*/,
     const ConvectiveDifferencingType differencing_form,
-    std::vector<RobinBcCoefStrategy<NDIM>*>  conc_bc_coefs)
+    std::vector<RobinBcCoefStrategy<NDIM>*> conc_bc_coefs)
     : ConvectiveOperator(object_name, differencing_form),
-      d_ghostfill_alg_Q(NULL),
+      d_ghostfill_alg_Q(nullptr),
       d_ghostfill_scheds_Q(),
       d_outflow_bdry_extrap_type("CONSTANT"),
-      d_hierarchy(NULL),
+      d_hierarchy(nullptr),
       d_coarsest_ln(-1),
       d_finest_ln(-1),
       d_Q_var(Q_var),

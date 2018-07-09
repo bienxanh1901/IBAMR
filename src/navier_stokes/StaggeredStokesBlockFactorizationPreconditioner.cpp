@@ -32,7 +32,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <ostream>
 #include <string>
 
@@ -106,11 +106,11 @@ StaggeredStokesBlockFactorizationPreconditioner::StaggeredStokesBlockFactorizati
     : StaggeredStokesBlockPreconditioner(/*needs_velocity_solver*/ true,
                                          /*needs_pressure_solver*/ true),
       d_factorization_type(LOWER_TRIANGULAR),
-      d_P_bdry_fill_op(NULL),
-      d_no_fill_op(NULL),
-      d_U_var(NULL),
+      d_P_bdry_fill_op(nullptr),
+      d_no_fill_op(nullptr),
+      d_U_var(nullptr),
       d_F_U_mod_idx(-1),
-      d_P_var(NULL),
+      d_P_var(nullptr),
       d_P_scratch_idx(-1),
       d_F_P_mod_idx(-1)
 {
@@ -264,7 +264,7 @@ StaggeredStokesBlockFactorizationPreconditioner::solveSystem(SAMRAIVectorReal<ND
 
     // Setup the interpolation transaction information.
     Pointer<VariableFillPattern<NDIM> > fill_pattern = new CellNoCornersFillPattern(CELLG, false, false, true);
-    typedef HierarchyGhostCellInterpolation::InterpolationTransactionComponent InterpolationTransactionComponent;
+    using InterpolationTransactionComponent = HierarchyGhostCellInterpolation::InterpolationTransactionComponent;
     InterpolationTransactionComponent P_transaction_comp(P_idx,
                                                          DATA_REFINE_TYPE,
                                                          USE_CF_INTERPOLATION,
@@ -399,7 +399,7 @@ StaggeredStokesBlockFactorizationPreconditioner::initializeSolverState(const SAM
 
     // Setup hierarchy operators.
     Pointer<VariableFillPattern<NDIM> > fill_pattern = new CellNoCornersFillPattern(CELLG, false, false, true);
-    typedef HierarchyGhostCellInterpolation::InterpolationTransactionComponent InterpolationTransactionComponent;
+    using InterpolationTransactionComponent = HierarchyGhostCellInterpolation::InterpolationTransactionComponent;
     InterpolationTransactionComponent P_scratch_component(d_P_scratch_idx,
                                                           DATA_REFINE_TYPE,
                                                           USE_CF_INTERPOLATION,

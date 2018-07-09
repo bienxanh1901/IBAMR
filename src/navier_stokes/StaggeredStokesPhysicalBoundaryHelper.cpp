@@ -32,7 +32,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <map>
 #include <ostream>
 #include <utility>
@@ -97,7 +97,7 @@ StaggeredStokesPhysicalBoundaryHelper::enforceNormalVelocityBoundaryConditions(
     TBOX_ASSERT(d_hierarchy);
 #endif
     StaggeredStokesPhysicalBoundaryHelper::setupBcCoefObjects(
-        u_bc_coefs, /*p_bc_coef*/ NULL, u_data_idx, p_data_idx, homogeneous_bc);
+        u_bc_coefs, /*p_bc_coef*/ nullptr, u_data_idx, p_data_idx, homogeneous_bc);
     std::vector<int> target_data_idxs(2);
     target_data_idxs[0] = u_data_idx;
     target_data_idxs[1] = p_data_idx;
@@ -154,7 +154,7 @@ StaggeredStokesPhysicalBoundaryHelper::enforceNormalVelocityBoundaryConditions(
             }
         }
     }
-    StaggeredStokesPhysicalBoundaryHelper::resetBcCoefObjects(u_bc_coefs, /*p_bc_coef*/ NULL);
+    StaggeredStokesPhysicalBoundaryHelper::resetBcCoefObjects(u_bc_coefs, /*p_bc_coef*/ nullptr);
     return;
 } // enforceNormalVelocityBoundaryConditions
 

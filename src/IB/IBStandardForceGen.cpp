@@ -32,9 +32,9 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <math.h>
-#include <stddef.h>
 #include <algorithm>
+#include <cmath>
+#include <cstddef>
 #include <functional>
 #include <iterator>
 #include <limits>
@@ -833,7 +833,7 @@ IBStandardForceGen::initializeSpringLevelData(std::set<int>& nonlocal_petsc_idx_
             petsc_mastr_node_idxs[current_spring] = petsc_idx;
             force_fcns[current_spring] = d_spring_force_fcn_map[fcn[k]];
             force_deriv_fcns[current_spring] = d_spring_force_deriv_fcn_map[fcn[k]];
-            parameters[current_spring] = params.empty() ? NULL : &params[k][0];
+            parameters[current_spring] = params.empty() ? nullptr : &params[k][0];
             ++current_spring;
         }
     }

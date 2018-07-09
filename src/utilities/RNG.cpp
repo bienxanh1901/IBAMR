@@ -1,8 +1,8 @@
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
 #include <iosfwd>
 #include <iostream>
 #include <map>
@@ -257,7 +257,7 @@ RNG::parallel_seed(int global_seed)
     {
         if (seed == 0)
         {
-            seed = static_cast<int>(time(0));
+            seed = static_cast<int>(time(nullptr));
         }
         std::cout << "\nGlobal seed = " << seed << "\n\n";
     }
