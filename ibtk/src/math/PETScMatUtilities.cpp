@@ -972,7 +972,7 @@ PETScMatUtilities::constructPatchLevelSCInterpOp(Mat& mat,
 
         // Construct the interpolation weights for this IB point.
         std::vector<double> w[NDIM];
-        for (int d = 0; d < NDIM; ++d) w[d].resize(interp_stencil);
+        for (auto& d : w) d.resize(interp_stencil);
         int stencil_box_nvals = 1;
         for (unsigned int d = 0; d < NDIM; ++d) stencil_box_nvals *= interp_stencil;
         std::vector<double> stencil_box_vals(stencil_box_nvals);
