@@ -165,7 +165,7 @@ build_local_marker_cloud(DBfile* dbfile,
     std::vector<float*> coords(NDIM);
     for (unsigned int d = 0; d < NDIM; ++d)
     {
-        coords[d] = nmarks > 0 ? &block_X[d * nmarks] : NULL;
+        coords[d] = nmarks > 0 ? &block_X[d * nmarks] : nullptr;
     }
 
     int ndims = NDIM;
@@ -180,7 +180,7 @@ build_local_marker_cloud(DBfile* dbfile,
         std::vector<float*> vars(varplotdepth);
         for (int d = 0; d < varplotdepth; ++d)
         {
-            vars[d] = nmarks > 0 ? &block_varvals[v][d * nmarks] : NULL;
+            vars[d] = nmarks > 0 ? &block_varvals[v][d * nmarks] : nullptr;
         }
 
         if (varplotdepth == 1)
@@ -332,7 +332,7 @@ build_local_curv_block(DBfile* dbfile,
     std::vector<float*> coords(NDIM);
     for (unsigned int d = 0; d < NDIM; ++d)
     {
-        coords[d] = ntot > 0 ? &block_X[d * ntot] : 0;
+        coords[d] = ntot > 0 ? &block_X[d * ntot] : nullptr;
     }
 
     int ndims = NDIM;
@@ -368,12 +368,12 @@ build_local_curv_block(DBfile* dbfile,
         std::vector<float*> vars(varplotdepth);
         for (int d = 0; d < varplotdepth; ++d)
         {
-            vars[d] = ntot > 0 ? &block_varvals[v][d * ntot] : NULL;
+            vars[d] = ntot > 0 ? &block_varvals[v][d * ntot] : nullptr;
         }
 
         if (varplotdepth == 1)
         {
-            DBPutQuadvar1(dbfile, varname, meshname, vars[0], &dims[0], ndims, NULL, 0, DB_FLOAT, DB_NODECENT, optlist);
+            DBPutQuadvar1(dbfile, varname, meshname, vars[0], &dims[0], ndims, nullptr, 0, DB_FLOAT, DB_NODECENT, optlist);
         }
         else
         {
@@ -385,7 +385,7 @@ build_local_curv_block(DBfile* dbfile,
                          &vars[0],
                          &dims[0],
                          ndims,
-                         NULL,
+                         nullptr,
                          0,
                          DB_FLOAT,
                          DB_NODECENT,
@@ -522,7 +522,7 @@ build_local_ucd_mesh(DBfile* dbfile,
     std::vector<float*> coords(NDIM);
     for (unsigned int d = 0; d < NDIM; ++d)
     {
-        coords[d] = ntot > 0 ? &block_X[d * ntot] : NULL;
+        coords[d] = ntot > 0 ? &block_X[d * ntot] : nullptr;
     }
     const int nnodes = ntot;
 
@@ -552,7 +552,7 @@ build_local_ucd_mesh(DBfile* dbfile,
                    "zonelist",
                    nzones,
                    ndims,
-                   lnodelist > 0 ? &nodelist[0] : NULL,
+                   lnodelist > 0 ? &nodelist[0] : nullptr,
                    lnodelist,
                    origin,
                    lo_offset,
@@ -572,9 +572,9 @@ build_local_ucd_mesh(DBfile* dbfile,
                  nnodes,
                  nzones,
                  "zonelist",
-                 NULL,
+                 nullptr,
                  DB_FLOAT,
-                 NULL);
+                 nullptr);
 
     // Write the variables defined on the unstructured mesh.
     for (int v = 0; v < nvars; ++v)
@@ -593,12 +593,12 @@ build_local_ucd_mesh(DBfile* dbfile,
         std::vector<float*> vars(varplotdepth);
         for (int d = 0; d < varplotdepth; ++d)
         {
-            vars[d] = ntot > 0 ? &block_varvals[v][d * ntot] : NULL;
+            vars[d] = ntot > 0 ? &block_varvals[v][d * ntot] : nullptr;
         }
 
         if (varplotdepth == 1)
         {
-            DBPutUcdvar1(dbfile, varname, meshname, vars[0], nnodes, NULL, 0, DB_FLOAT, DB_NODECENT, optlist);
+            DBPutUcdvar1(dbfile, varname, meshname, vars[0], nnodes, nullptr, 0, DB_FLOAT, DB_NODECENT, optlist);
         }
         else
         {
@@ -609,7 +609,7 @@ build_local_ucd_mesh(DBfile* dbfile,
                         &compnames[0],
                         &vars[0],
                         nnodes,
-                        NULL,
+                        nullptr,
                         0,
                         DB_FLOAT,
                         DB_NODECENT,
@@ -668,7 +668,7 @@ LSiloDataWriter::LSiloDataWriter(std::string  object_name,
       d_ucd_mesh_names(d_finest_ln + 1),
       d_ucd_mesh_vertices(d_finest_ln + 1),
       d_ucd_mesh_edge_maps(d_finest_ln + 1),
-      d_coords_data(d_finest_ln + 1, Pointer<LData>(NULL)),
+      d_coords_data(d_finest_ln + 1, Pointer<LData>(nullptr)),
       d_nvars(d_finest_ln + 1, 0),
       d_var_names(d_finest_ln + 1),
       d_var_start_depths(d_finest_ln + 1),
@@ -829,7 +829,7 @@ LSiloDataWriter::resetLevels(const int coarsest_ln, const int finest_ln)
     d_ucd_mesh_vertices.resize(d_finest_ln + 1);
     d_ucd_mesh_edge_maps.resize(d_finest_ln + 1);
 
-    d_coords_data.resize(d_finest_ln + 1, NULL);
+    d_coords_data.resize(d_finest_ln + 1, nullptr);
     d_nvars.resize(d_finest_ln + 1, 0);
     d_var_names.resize(d_finest_ln + 1);
     d_var_start_depths.resize(d_finest_ln + 1);
@@ -1300,7 +1300,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
     current_file_name += temp_buf;
     current_file_name += SILO_PROCESSOR_FILE_POSTFIX;
 
-    if (!(dbfile = DBCreate(current_file_name.c_str(), DB_CLOBBER, DB_LOCAL, NULL, DB_PDB)))
+    if (!(dbfile = DBCreate(current_file_name.c_str(), DB_CLOBBER, DB_LOCAL, nullptr, DB_PDB)))
     {
         TBOX_ERROR(d_object_name << "::writePlotData()\n"
                                  << "  Could not create DBfile named "
@@ -1821,7 +1821,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
         sprintf(temp_buf, "%06d", d_time_step_number);
         std::string summary_file_name =
             dump_dirname + "/" + SILO_SUMMARY_FILE_PREFIX + temp_buf + SILO_SUMMARY_FILE_POSTFIX;
-        if (!(dbfile = DBCreate(summary_file_name.c_str(), DB_CLOBBER, DB_LOCAL, NULL, DB_PDB)))
+        if (!(dbfile = DBCreate(summary_file_name.c_str(), DB_CLOBBER, DB_LOCAL, nullptr, DB_PDB)))
         {
             TBOX_ERROR(d_object_name << "::writePlotData()\n"
                                      << "  Could not create DBfile named "
@@ -2362,7 +2362,7 @@ LSiloDataWriter::buildVecScatters(AO& ao, const int level_number)
 
         IS src_is;
         ierr = ISCreateBlock(
-            PETSC_COMM_WORLD, depth, idxs_sz, (idxs.empty() ? NULL : &idxs[0]), PETSC_COPY_VALUES, &src_is);
+            PETSC_COMM_WORLD, depth, idxs_sz, (idxs.empty() ? nullptr : &idxs[0]), PETSC_COPY_VALUES, &src_is);
         IBTK_CHKERRQ(ierr);
 
         Vec& src_vec = d_src_vec[level_number][depth];
@@ -2381,7 +2381,7 @@ LSiloDataWriter::buildVecScatters(AO& ao, const int level_number)
             ierr = VecScatterDestroy(&vec_scatter);
             IBTK_CHKERRQ(ierr);
         }
-        ierr = VecScatterCreate(src_vec, src_is, dst_vec, NULL, &vec_scatter);
+        ierr = VecScatterCreate(src_vec, src_is, dst_vec, nullptr, &vec_scatter);
         IBTK_CHKERRQ(ierr);
 
         ierr = ISDestroy(&src_is);

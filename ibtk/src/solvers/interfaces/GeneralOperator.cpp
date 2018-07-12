@@ -60,7 +60,7 @@ GeneralOperator::GeneralOperator(std::string  object_name, bool homogeneous_bc)
       d_solution_time(std::numeric_limits<double>::quiet_NaN()),
       d_current_time(std::numeric_limits<double>::quiet_NaN()),
       d_new_time(std::numeric_limits<double>::quiet_NaN()),
-      d_hier_math_ops(NULL),
+      d_hier_math_ops(nullptr),
       d_hier_math_ops_external(false),
       d_enable_logging(false)
 {

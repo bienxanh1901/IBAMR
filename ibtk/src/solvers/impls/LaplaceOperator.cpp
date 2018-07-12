@@ -58,7 +58,7 @@ LaplaceOperator::LaplaceOperator(const std::string& object_name, bool homogeneou
     : LinearOperator(object_name, homogeneous_bc),
       d_poisson_spec(d_object_name + "::poisson_spec"),
       d_default_bc_coef(
-          new LocationIndexRobinBcCoefs<NDIM>(d_object_name + "::default_bc_coef", Pointer<Database>(NULL))),
+          new LocationIndexRobinBcCoefs<NDIM>(d_object_name + "::default_bc_coef", Pointer<Database>(nullptr))),
       d_bc_coefs(1, d_default_bc_coef)
 {
     // Initialize the Poisson specifications.
@@ -80,7 +80,7 @@ LaplaceOperator::LaplaceOperator(const std::string& object_name, bool homogeneou
 LaplaceOperator::~LaplaceOperator()
 {
     delete d_default_bc_coef;
-    d_default_bc_coef = NULL;
+    d_default_bc_coef = nullptr;
     return;
 } // ~LaplaceOperator()
 

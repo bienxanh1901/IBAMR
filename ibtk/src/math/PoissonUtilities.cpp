@@ -325,7 +325,7 @@ PoissonUtilities::computeMatrixCoefficients(CellData<NDIM, double>& matrix_coeff
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[d]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[d]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             const unsigned int location_index = bdry_box.getLocationIndex();
@@ -556,7 +556,7 @@ PoissonUtilities::computeMatrixCoefficients(SideData<NDIM, double>& matrix_coeff
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // Restore the original patch geometry object.
@@ -652,7 +652,7 @@ PoissonUtilities::computeMatrixCoefficients(SideData<NDIM, double>& matrix_coeff
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // Modify the matrix coefficients to account for homogeneous
@@ -745,7 +745,7 @@ PoissonUtilities::computeVCSCViscousOpMatrixCoefficients(
     matrix_coefficients.fillAll(0.0);
 
     const bool C_is_varying = poisson_spec.cIsVariable();
-    Pointer<SideData<NDIM, double> > C_data = NULL;
+    Pointer<SideData<NDIM, double> > C_data = nullptr;
     if (C_is_varying) C_data = patch->getPatchData(poisson_spec.getCPatchDataId());
 
 #if (NDIM == 2)
@@ -934,7 +934,7 @@ typedef std::map<Index<NDIM>, int, IndexFortranOrder> StencilMapType;
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // Restore the original patch geometry object.
@@ -1055,7 +1055,7 @@ typedef std::map<Index<NDIM>, int, IndexFortranOrder> StencilMapType;
                     extended_bc_coef->setHomogeneousBc(homogeneous_bc);
                 }
                 bc_coefs[comp]->setBcCoefs(
-                    acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+                    acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
                 if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
                 // Restore the original patch geometry object.
@@ -1167,7 +1167,7 @@ typedef std::map<Index<NDIM>, int, IndexFortranOrder> StencilMapType;
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // Modify the matrix coefficients to account for homogeneous
@@ -1297,7 +1297,7 @@ PoissonUtilities::adjustRHSAtPhysicalBoundary(CellData<NDIM, double>& rhs_data,
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[d]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[d]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             const unsigned int location_index = bdry_box.getLocationIndex();
@@ -1443,7 +1443,7 @@ PoissonUtilities::adjustRHSAtPhysicalBoundary(SideData<NDIM, double>& rhs_data,
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // Restore the original patch geometry object.
@@ -1526,7 +1526,7 @@ PoissonUtilities::adjustRHSAtPhysicalBoundary(SideData<NDIM, double>& rhs_data,
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // For the non-symmetric boundary treatment,
@@ -1672,7 +1672,7 @@ PoissonUtilities::adjustVCSCViscousOpRHSAtPhysicalBoundary(SideData<NDIM, double
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // Restore the original patch geometry object.
@@ -1790,7 +1790,7 @@ PoissonUtilities::adjustVCSCViscousOpRHSAtPhysicalBoundary(SideData<NDIM, double
                     extended_bc_coef->setHomogeneousBc(homogeneous_bc);
                 }
                 bc_coefs[comp]->setBcCoefs(
-                    acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+                    acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
                 if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
                 // Restore the original patch geometry object.
@@ -1888,7 +1888,7 @@ PoissonUtilities::adjustVCSCViscousOpRHSAtPhysicalBoundary(SideData<NDIM, double
                 extended_bc_coef->clearTargetPatchDataIndex();
                 extended_bc_coef->setHomogeneousBc(homogeneous_bc);
             }
-            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, NULL, *patch, trimmed_bdry_box, data_time);
+            bc_coefs[axis]->setBcCoefs(acoef_data, bcoef_data, gcoef_data, nullptr, *patch, trimmed_bdry_box, data_time);
             if (homogeneous_bc && !extended_bc_coef) gcoef_data->fillAll(0.0);
 
             // For the non-symmetric boundary treatment,
