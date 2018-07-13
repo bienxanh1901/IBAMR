@@ -33,10 +33,10 @@
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
 #include <algorithm>
-#include <math.h>
+#include <cmath>
+#include <cstddef>
+#include <cstring>
 #include <ostream>
-#include <stddef.h>
-#include <string.h>
 #include <string>
 #include <vector>
 

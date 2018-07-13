@@ -32,7 +32,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <ostream>
 #include <set>
 #include <string>

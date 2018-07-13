@@ -39,8 +39,8 @@
 #include <map>
 #include <ostream>
 #include <set>
-#include <stdbool.h>
-#include <stddef.h>
+
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>

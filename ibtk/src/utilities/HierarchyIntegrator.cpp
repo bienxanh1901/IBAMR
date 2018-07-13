@@ -33,13 +33,13 @@
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
 #include <algorithm>
+#include <cstddef>
 #include <deque>
 #include <limits>
 #include <list>
 #include <map>
 #include <ostream>
 #include <set>
-#include <stddef.h>
 #include <string>
 #include <utility>
 #include <vector>

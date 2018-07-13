@@ -32,8 +32,8 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <math.h>
 #include <algorithm>
+#include <cmath>
 #include <ostream>
 
 #include "IntVector.h"

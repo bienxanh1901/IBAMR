@@ -32,9 +32,9 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <math.h>
-#include <stddef.h>
 #include <algorithm>
+#include <cmath>
+#include <cstddef>
 #include <functional>
 #include <numeric>
 #include <vector>
