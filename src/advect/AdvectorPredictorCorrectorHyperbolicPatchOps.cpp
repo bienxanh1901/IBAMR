@@ -1374,7 +1374,7 @@ AdvectorPredictorCorrectorHyperbolicPatchOps::setInflowBoundaryConditions(Patch<
         // Setup any extended Robin BC coef objects.
         for (int depth = 0; depth < q_integral_data->getDepth(); ++depth)
         {
-            ExtendedRobinBcCoefStrategy* extended_bc_coef =
+            auto  extended_bc_coef =
                 dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_Q_bc_coef[Q_var][depth]);
             if (extended_bc_coef)
             {

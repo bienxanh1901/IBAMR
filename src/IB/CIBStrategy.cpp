@@ -541,7 +541,7 @@ void
 CIBStrategy::copyFreeDOFsVecToArray(Vec b, double* array, const std::vector<unsigned>& struct_ids, const int array_rank)
 {
     if (struct_ids.empty()) return;
-    const int num_structs = static_cast<int>(struct_ids.size());
+    const auto  num_structs = static_cast<int>(struct_ids.size());
 
     // Get the mapping of indices in the two vectors.
     updateFreeDOFsMapping();
@@ -572,7 +572,7 @@ CIBStrategy::copyFreeDOFsVecToArray(Vec b, double* array, const std::vector<unsi
             map_vec.push_back(i);
         }
     }
-    int idx_size = static_cast<int>(map_vec.size());
+    auto  idx_size = static_cast<int>(map_vec.size());
 #if !defined(NDEBUG)
     TBOX_ASSERT(idx_size == static_cast<int>(map_array.size()));
 #endif
@@ -624,7 +624,7 @@ void
 CIBStrategy::copyFreeDOFsArrayToVec(Vec b, double* array, const std::vector<unsigned>& struct_ids, const int array_rank)
 {
     if (struct_ids.empty()) return;
-    const int num_structs = static_cast<int>(struct_ids.size());
+    const auto  num_structs = static_cast<int>(struct_ids.size());
 
     // Get the mapping of indices in the two vectors.
     updateFreeDOFsMapping();
@@ -655,7 +655,7 @@ CIBStrategy::copyFreeDOFsArrayToVec(Vec b, double* array, const std::vector<unsi
             map_vec.push_back(i);
         }
     }
-    int idx_size = static_cast<int>(map_vec.size());
+    auto  idx_size = static_cast<int>(map_vec.size());
 #if !defined(NDEBUG)
     TBOX_ASSERT(idx_size == static_cast<int>(map_array.size()));
 #endif

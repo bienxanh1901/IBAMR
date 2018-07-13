@@ -1227,7 +1227,7 @@ INSStaggeredStabilizedPPMConvectiveOperator::applyConvectiveOperator(const int U
                         {
                             Box<NDIM> bdry_box = domain_box;
                             const double width = d_width[location_index];
-                            const int offset = static_cast<int>(width / dx[axis]);
+                            const auto  offset = static_cast<int>(width / dx[axis]);
                             if (is_lower)
                             {
                                 bdry_box.upper(axis) = domain_box.lower(axis) + offset;

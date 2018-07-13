@@ -1217,7 +1217,7 @@ IBMethod::spreadFluidSource(const int q_data_idx,
         }
         BoxList<NDIM> bdry_boxes;
         bdry_boxes.removeIntersections(domain_box, interior_box);
-        double vol = static_cast<double>(bdry_boxes.getTotalSizeOfBoxes());
+        auto  vol = static_cast<double>(bdry_boxes.getTotalSizeOfBoxes());
         for (unsigned int d = 0; d < NDIM; ++d)
         {
             vol *= dx_coarsest[d];
@@ -1714,11 +1714,11 @@ IBMethod::putToDatabase(Pointer<Database> db)
     const std::vector<std::string>& instrument_names = IBInstrumentationSpec::getInstrumentNames();
     if (!instrument_names.empty())
     {
-        const int instrument_names_sz = static_cast<int>(instrument_names.size());
+        const auto  instrument_names_sz = static_cast<int>(instrument_names.size());
         db->putInteger("instrument_names_sz", instrument_names_sz);
         db->putStringArray("instrument_names", &instrument_names[0], instrument_names_sz);
     }
-    const int d_total_flow_volume_sz = static_cast<int>(d_total_flow_volume.size());
+    const auto  d_total_flow_volume_sz = static_cast<int>(d_total_flow_volume.size());
     db->putInteger("d_total_flow_volume_sz", d_total_flow_volume_sz);
     if (!d_total_flow_volume.empty())
     {
@@ -2152,7 +2152,7 @@ PetscErrorCode
 IBMethod::computeForce_SAMRAI(void* ctx, Vec X, Vec F)
 {
     PetscErrorCode ierr;
-    IBMethod* ib_method_ops = static_cast<IBMethod*>(ctx);
+    auto  ib_method_ops = static_cast<IBMethod*>(ctx);
     ierr = ib_method_ops->computeForce(X, F);
     CHKERRQ(ierr);
     return ierr;

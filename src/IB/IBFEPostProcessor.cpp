@@ -102,7 +102,7 @@ IBFEPostProcessor::registerScalarVariable(const std::string& name,
                                           void* fcn_ctx)
 {
     EquationSystems* equation_systems = d_fe_data_manager->getEquationSystems();
-    System& system = equation_systems->add_system<System>(name + " reconstruction system");
+    auto & system = equation_systems->add_system<System>(name + " reconstruction system");
     system.add_variable(name, fe_order, fe_family);
     d_scalar_var_systems.push_back(&system);
     d_scalar_var_fcns.push_back(fcn);
@@ -122,7 +122,7 @@ IBFEPostProcessor::registerVectorVariable(const std::string& name,
                                           unsigned int dim)
 {
     EquationSystems* equation_systems = d_fe_data_manager->getEquationSystems();
-    System& system = equation_systems->add_system<System>(name + " reconstruction system");
+    auto & system = equation_systems->add_system<System>(name + " reconstruction system");
     for (unsigned int i = 0; i < dim; ++i)
     {
         std::ostringstream os;
@@ -148,7 +148,7 @@ IBFEPostProcessor::registerTensorVariable(const std::string& var_name,
                                           unsigned int var_dim)
 {
     EquationSystems* equation_systems = d_fe_data_manager->getEquationSystems();
-    System& system = equation_systems->add_system<System>(var_name + " reconstruction system");
+    auto & system = equation_systems->add_system<System>(var_name + " reconstruction system");
     for (unsigned int i = 0; i < var_dim; ++i)
     {
         for (unsigned int j = 0; j < var_dim; ++j)
@@ -197,7 +197,7 @@ IBFEPostProcessor::registerInterpolatedScalarEulerianVariable(
     const FEDataManager::InterpSpec& interp_spec)
 {
     EquationSystems* equation_systems = d_fe_data_manager->getEquationSystems();
-    System& system = equation_systems->add_system<System>(var_name + " interpolation system");
+    auto & system = equation_systems->add_system<System>(var_name + " interpolation system");
     system.add_variable(var_name, var_fe_order, var_fe_family);
     d_scalar_interp_var_systems.push_back(&system);
     d_scalar_interp_vars.push_back(var);

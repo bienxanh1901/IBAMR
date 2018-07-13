@@ -486,7 +486,7 @@ CIBMethod::initializePatchHierarchy(Pointer<PatchHierarchy<NDIM> > hierarchy,
     const int struct_ln = getStructuresLevelNumber();
     std::vector<int> structIDs = d_l_data_manager->getLagrangianStructureIDs(struct_ln);
     std::sort(structIDs.begin(), structIDs.end());
-    const unsigned structs_on_this_ln = static_cast<unsigned>(structIDs.size());
+    const auto  structs_on_this_ln = static_cast<unsigned>(structIDs.size());
 
     for (unsigned struct_no = 0; struct_no < structs_on_this_ln; ++struct_no)
     {
@@ -676,7 +676,7 @@ CIBMethod::forwardEulerStep(double current_time, double new_time)
 
         // Get structures on this level.
         const std::vector<int> structIDs = d_l_data_manager->getLagrangianStructureIDs(ln);
-        const unsigned structs_on_this_ln = static_cast<unsigned>(structIDs.size());
+        const auto  structs_on_this_ln = static_cast<unsigned>(structIDs.size());
 #if !defined(NDEBUG)
         TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
@@ -796,7 +796,7 @@ CIBMethod::midpointStep(double current_time, double new_time)
 
         // Get structures on this level.
         const std::vector<int> structIDs = d_l_data_manager->getLagrangianStructureIDs(ln);
-        const unsigned structs_on_this_ln = (unsigned)structIDs.size();
+        const auto  structs_on_this_ln = (unsigned)structIDs.size();
 #if !defined(NDEBUG)
         TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
@@ -1225,7 +1225,7 @@ CIBMethod::copyVecToArray(Vec b,
                           const int array_rank)
 {
     if (struct_ids.empty()) return;
-    const unsigned num_structs = static_cast<unsigned>(struct_ids.size());
+    const auto  num_structs = static_cast<unsigned>(struct_ids.size());
 
     // Get the Lagrangian indices of the structures.
     std::vector<int> map;
@@ -1298,7 +1298,7 @@ CIBMethod::copyArrayToVec(Vec b,
                           const int array_rank)
 {
     if (struct_ids.empty()) return;
-    const unsigned num_structs = static_cast<unsigned>(struct_ids.size());
+    const auto  num_structs = static_cast<unsigned>(struct_ids.size());
 
     // Get the Lagrangian indices of the structures.
     std::vector<int> map;
@@ -1589,7 +1589,7 @@ CIBMethod::rotateArray(double* array,
     {
         const bool position_system = (depth % NDIM == 0);
         const bool force_system = (depth % s_max_free_dofs == 0);
-        const unsigned num_structs = static_cast<unsigned>(struct_ids.size());
+        const auto  num_structs = static_cast<unsigned>(struct_ids.size());
         unsigned offset = 0;
 
         for (unsigned k = 0; k < num_structs; ++k)
@@ -1760,7 +1760,7 @@ CIBMethod::computeCOMOfStructures(std::vector<Eigen::Vector3d>& center_of_mass, 
 
         // Get structures on this level.
         const std::vector<int> structIDs = d_l_data_manager->getLagrangianStructureIDs(ln);
-        const unsigned structs_on_this_ln = static_cast<unsigned>(structIDs.size());
+        const auto  structs_on_this_ln = static_cast<unsigned>(structIDs.size());
 #if !defined(NDEBUG)
         TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
@@ -1810,7 +1810,7 @@ CIBMethod::setRegularizationWeight(const int level_number)
 
     // Get structures on this level.
     const std::vector<int> structIDs = d_l_data_manager->getLagrangianStructureIDs(level_number);
-    const unsigned structs_on_this_ln = static_cast<unsigned>(structIDs.size());
+    const auto  structs_on_this_ln = static_cast<unsigned>(structIDs.size());
 #if !defined(NDEBUG)
     TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
@@ -1930,7 +1930,7 @@ CIBMethod::setInitialLambda(const int level_number)
 
     // Get structures on this level.
     const std::vector<int> structIDs = d_l_data_manager->getLagrangianStructureIDs(level_number);
-    const unsigned structs_on_this_ln = static_cast<unsigned>(structIDs.size());
+    const auto  structs_on_this_ln = static_cast<unsigned>(structIDs.size());
 #if !defined(NDEBUG)
     TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif

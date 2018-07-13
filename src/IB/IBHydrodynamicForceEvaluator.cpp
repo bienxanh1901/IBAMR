@@ -1259,7 +1259,7 @@ IBHydrodynamicForceEvaluator::fillPatchData(const int u_src_idx,
             hier_data_ops_manager->getOperationsDouble(d_p_var, patch_hierarchy, true);
         hier_cc_data_ops->copyData(d_p_idx, p_src_idx, true);
 
-        INSStaggeredPressureBcCoef* p_ins_bc_coef = dynamic_cast<INSStaggeredPressureBcCoef*>(p_src_bc_coef);
+        auto  p_ins_bc_coef = dynamic_cast<INSStaggeredPressureBcCoef*>(p_src_bc_coef);
 #if !defined(NDEBUG)
         TBOX_ASSERT(p_ins_bc_coef);
 #endif

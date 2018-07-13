@@ -364,7 +364,7 @@ DirectMobilitySolver::solveSystem(Vec x, Vec b)
         const std::vector<std::vector<unsigned> >& struct_ids = d_mat_actual_id_map[mat_name];
         const int managing_proc = d_mat_proc_map[mat_name];
         const int mat_size = d_mat_nodes_map[mat_name] * data_depth;
-        const int num_structs = static_cast<int>(struct_ids.size());
+        const auto  num_structs = static_cast<int>(struct_ids.size());
 
         for (int k = 0; k < num_structs; ++k)
         {
@@ -420,7 +420,7 @@ DirectMobilitySolver::solveBodySystem(Vec x, Vec b)
         const std::vector<std::vector<unsigned> >& struct_ids = d_mat_actual_id_map[mat_name];
         const int mat_size = d_mat_parts_map[mat_name] * data_depth;
         const int managing_proc = d_mat_proc_map[mat_name];
-        const int num_structs = static_cast<int>(struct_ids.size());
+        const auto  num_structs = static_cast<int>(struct_ids.size());
 
         for (int k = 0; k < num_structs; ++k)
         {
@@ -462,7 +462,7 @@ DirectMobilitySolver::initializeSolverState(Vec x, Vec /*b*/)
     IBAMR_TIMER_START(t_initialize_solver_state);
 
     int rank = SAMRAI_MPI::getRank();
-    unsigned managed_mats = static_cast<unsigned>(d_mat_map.size());
+    auto  managed_mats = static_cast<unsigned>(d_mat_map.size());
 
     static bool recreate_mobility_matrices = true;
     static std::vector<bool> read_files(managed_mats, false);

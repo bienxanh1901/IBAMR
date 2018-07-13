@@ -147,7 +147,7 @@ IMPInitializer::registerMesh(MeshBase* mesh, int level_number)
     const int max_levels = d_gridding_alg->getMaxLevels();
     if (level_number < 0) level_number = max_levels - 1;
     level_number = std::min(level_number, max_levels - 1);
-    const unsigned int mesh_idx = static_cast<unsigned int>(d_meshes[level_number].size());
+    const auto  mesh_idx = static_cast<unsigned int>(d_meshes[level_number].size());
     d_meshes[level_number].push_back(mesh);
 
     // Compute the Cartesian grid spacing on the specified level of the mesh.

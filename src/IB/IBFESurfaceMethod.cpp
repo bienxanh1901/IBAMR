@@ -573,7 +573,7 @@ IBFESurfaceMethod::interpolateVelocity(const int u_data_idx,
         }
 
         X_ghost_vec->close();
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec);
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec);
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -1193,7 +1193,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
         }
         else
         {
-            System& X_system = equation_systems->add_system<System>(COORDS_SYSTEM_NAME);
+            auto & X_system = equation_systems->add_system<System>(COORDS_SYSTEM_NAME);
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 std::ostringstream os;
@@ -1202,7 +1202,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
             }
             X_system.add_vector("INITIAL_COORDINATES", /*projections*/ true, GHOSTED);
 
-            System& dX_system = equation_systems->add_system<System>(COORD_MAPPING_SYSTEM_NAME);
+            auto & dX_system = equation_systems->add_system<System>(COORD_MAPPING_SYSTEM_NAME);
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 std::ostringstream os;
@@ -1210,7 +1210,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
                 dX_system.add_variable(os.str(), d_fe_order[part], d_fe_family[part]);
             }
 
-            System& U_system = equation_systems->add_system<System>(VELOCITY_SYSTEM_NAME);
+            auto & U_system = equation_systems->add_system<System>(VELOCITY_SYSTEM_NAME);
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 std::ostringstream os;
@@ -1218,7 +1218,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
                 U_system.add_variable(os.str(), d_fe_order[part], d_fe_family[part]);
             }
 
-            System& U_n_system = equation_systems->add_system<System>(NORMAL_VELOCITY_SYSTEM_NAME);
+            auto & U_n_system = equation_systems->add_system<System>(NORMAL_VELOCITY_SYSTEM_NAME);
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 std::ostringstream os;
@@ -1226,7 +1226,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
                 U_n_system.add_variable(os.str(), d_fe_order[part], d_fe_family[part]);
             }
 
-            System& U_t_system = equation_systems->add_system<System>(TANGENTIAL_VELOCITY_SYSTEM_NAME);
+            auto & U_t_system = equation_systems->add_system<System>(TANGENTIAL_VELOCITY_SYSTEM_NAME);
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 std::ostringstream os;
@@ -1234,7 +1234,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
                 U_t_system.add_variable(os.str(), d_fe_order[part], d_fe_family[part]);
             }
 
-            System& F_system = equation_systems->add_system<System>(FORCE_SYSTEM_NAME);
+            auto & F_system = equation_systems->add_system<System>(FORCE_SYSTEM_NAME);
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 std::ostringstream os;
@@ -1244,7 +1244,7 @@ IBFESurfaceMethod::initializeFEEquationSystems()
 
             if (d_use_jump_conditions)
             {
-                System& DP_system = equation_systems->add_system<System>(PRESSURE_JUMP_SYSTEM_NAME);
+                auto & DP_system = equation_systems->add_system<System>(PRESSURE_JUMP_SYSTEM_NAME);
                 DP_system.add_variable("C_p", d_fe_order[part], d_fe_family[part]);
             }
         }
@@ -1276,12 +1276,12 @@ IBFESurfaceMethod::initializeFEData()
         updateCoordinateMapping(part);
 
         // Assemble systems.
-        System& X_system = equation_systems->get_system<System>(COORDS_SYSTEM_NAME);
-        System& dX_system = equation_systems->get_system<System>(COORD_MAPPING_SYSTEM_NAME);
-        System& U_system = equation_systems->get_system<System>(VELOCITY_SYSTEM_NAME);
-        System& U_n_system = equation_systems->get_system<System>(NORMAL_VELOCITY_SYSTEM_NAME);
-        System& U_t_system = equation_systems->get_system<System>(TANGENTIAL_VELOCITY_SYSTEM_NAME);
-        System& F_system = equation_systems->get_system<System>(FORCE_SYSTEM_NAME);
+        auto & X_system = equation_systems->get_system<System>(COORDS_SYSTEM_NAME);
+        auto & dX_system = equation_systems->get_system<System>(COORD_MAPPING_SYSTEM_NAME);
+        auto & U_system = equation_systems->get_system<System>(VELOCITY_SYSTEM_NAME);
+        auto & U_n_system = equation_systems->get_system<System>(NORMAL_VELOCITY_SYSTEM_NAME);
+        auto & U_t_system = equation_systems->get_system<System>(TANGENTIAL_VELOCITY_SYSTEM_NAME);
+        auto & F_system = equation_systems->get_system<System>(FORCE_SYSTEM_NAME);
 
         X_system.assemble_before_solve = false;
         X_system.assemble();
@@ -1303,7 +1303,7 @@ IBFESurfaceMethod::initializeFEData()
 
         if (d_use_jump_conditions)
         {
-            System& DP_system = equation_systems->get_system<System>(PRESSURE_JUMP_SYSTEM_NAME);
+            auto & DP_system = equation_systems->get_system<System>(PRESSURE_JUMP_SYSTEM_NAME);
             DP_system.assemble_before_solve = false;
             DP_system.assemble();
         }

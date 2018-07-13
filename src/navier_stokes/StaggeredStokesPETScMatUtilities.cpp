@@ -369,7 +369,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelMACStokesOp(
 
                 // Set the boundary condition coefficients.
                 static const bool homogeneous_bc = true;
-                ExtendedRobinBcCoefStrategy* extended_bc_coef =
+                auto  extended_bc_coef =
                     dynamic_cast<ExtendedRobinBcCoefStrategy*>(u_bc_coefs[axis]);
                 if (extended_bc_coef)
                 {
@@ -472,7 +472,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelMACStokesOp(
 
                 // Set the boundary condition coefficients.
                 static const bool homogeneous_bc = true;
-                ExtendedRobinBcCoefStrategy* extended_bc_coef =
+                auto  extended_bc_coef =
                     dynamic_cast<ExtendedRobinBcCoefStrategy*>(u_bc_coefs[axis]);
                 if (extended_bc_coef)
                 {
@@ -734,7 +734,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelASMSubdomains(std::vector<s
         TBOX_ASSERT(u_dof_data->getGhostCellWidth().min() >= overlap_size.max());
         TBOX_ASSERT(p_dof_data->getGhostCellWidth().min() >= overlap_size.max());
 #endif
-        int n_patch_subdomains = static_cast<int>(nonoverlap_boxes[patch_counter].size());
+        auto  n_patch_subdomains = static_cast<int>(nonoverlap_boxes[patch_counter].size());
         for (int k = 0; k < n_patch_subdomains; ++k, ++subdomain_counter)
         {
             // The nonoverlapping subdomains.
@@ -766,7 +766,7 @@ StaggeredStokesPETScMatUtilities::constructPatchLevelASMSubdomains(std::vector<s
                 const int dof_idx = (*p_dof_data)(i);
                 if (dof_idx >= 0) is_nonoverlap[subdomain_counter].insert(dof_idx);
             }
-            const int n_nonoverlap = static_cast<int>(is_nonoverlap[subdomain_counter].size());
+            const auto  n_nonoverlap = static_cast<int>(is_nonoverlap[subdomain_counter].size());
             nonoverlap_dof_counter += n_nonoverlap;
 
             // The overlapping subdomains.

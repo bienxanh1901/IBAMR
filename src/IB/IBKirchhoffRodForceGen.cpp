@@ -211,7 +211,7 @@ IBKirchhoffRodForceGen::initializeLevelData(const Pointer<PatchHierarchy<NDIM> >
     const int num_local_nodes = l_data_manager->getNumberOfLocalNodes(level_num);
 
     // Determine the non-zero structure for the matrices.
-    const int local_sz = static_cast<int>(petsc_curr_node_idxs.size());
+    const auto  local_sz = static_cast<int>(petsc_curr_node_idxs.size());
 
     std::vector<int> next_d_nz(local_sz, 1), next_o_nz(local_sz, 0);
     for (int k = 0; k < local_sz; ++k)

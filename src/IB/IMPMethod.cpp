@@ -757,7 +757,7 @@ IMPMethod::computeLagrangianForce(const double data_time)
         {
             const LNode* const node_idx = *cit;
             const int idx = node_idx->getGlobalPETScIndex();
-            MaterialPointSpec* mp_spec = node_idx->getNodeDataItem<MaterialPointSpec>();
+            auto  mp_spec = node_idx->getNodeDataItem<MaterialPointSpec>();
             if (mp_spec && d_PK1_stress_fcn)
             {
                 for (int i = 0; i < NDIM; ++i)
@@ -873,7 +873,7 @@ IMPMethod::spreadForce(const int f_data_idx,
                 for (auto it = node_set->begin(); it != node_set->end(); ++it)
                 {
                     const LNode* const node_idx = *it;
-                    MaterialPointSpec* mp_spec = node_idx->getNodeDataItem<MaterialPointSpec>();
+                    auto  mp_spec = node_idx->getNodeDataItem<MaterialPointSpec>();
                     if (!mp_spec) continue;
                     const double wgt = mp_spec->getWeight();
                     const int local_idx = node_idx->getLocalPETScIndex();

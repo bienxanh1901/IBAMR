@@ -289,7 +289,7 @@ IBStandardSourceGen::putToDatabase(Pointer<Database> db)
 #if !defined(NDEBUG)
     TBOX_ASSERT(db);
 #endif
-    const int s_num_sources_sz = static_cast<int>(s_num_sources.size());
+    const auto  s_num_sources_sz = static_cast<int>(s_num_sources.size());
     db->putInteger("s_num_sources.size()", s_num_sources_sz);
     db->putIntegerArray("s_num_sources", &s_num_sources[0], s_num_sources_sz);
     for (unsigned int ln = 0; ln < s_num_sources.size(); ++ln)
@@ -304,7 +304,7 @@ IBStandardSourceGen::putToDatabase(Pointer<Database> db)
         }
     }
 
-    const int d_n_src_sz = static_cast<int>(d_n_src.size());
+    const auto  d_n_src_sz = static_cast<int>(d_n_src.size());
     db->putInteger("finest_hier_level", d_n_src_sz - 1);
     db->putIntegerArray("d_n_src", &d_n_src[0], d_n_src_sz);
     for (unsigned int ln = 0; ln < d_n_src.size(); ++ln)
