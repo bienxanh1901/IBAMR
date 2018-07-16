@@ -214,15 +214,13 @@ LDataManager::getManager(const std::string& name,
 void
 LDataManager::freeAllManagers()
 {
-    for (auto it = s_data_manager_instances.begin();
-         it != s_data_manager_instances.end();
-         ++it)
+    for (auto& s_data_manager_instance : s_data_manager_instances)
     {
-        if (it->second)
+        if (s_data_manager_instance.second)
         {
-            delete it->second;
+            delete s_data_manager_instance.second;
         }
-        it->second = NULL;
+        s_data_manager_instance.second = NULL;
     }
     return;
 } // freeManager
@@ -936,9 +934,8 @@ LDataManager::computeLagrangianStructureCenterOfMass(const int structure_id, con
         *d_lag_mesh_data[level_number][POSN_DATA_NAME]->getLocalFormVecArray();
     const Pointer<LMesh> mesh = getLMesh(level_number);
     const std::vector<LNode*>& local_nodes = mesh->getLocalNodes();
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const int lag_idx = node_idx->getLagrangianIndex();
         if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
         {
@@ -976,9 +973,8 @@ LDataManager::computeLagrangianStructureBoundingBox(const int structure_id, cons
         *d_lag_mesh_data[level_number][POSN_DATA_NAME]->getLocalFormVecArray();
     const Pointer<LMesh> mesh = getLMesh(level_number);
     const std::vector<LNode*>& local_nodes = mesh->getLocalNodes();
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const int lag_idx = node_idx->getLagrangianIndex();
         if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
         {
@@ -1015,9 +1011,8 @@ LDataManager::reinitLagrangianStructure(const Point& X_center, const int structu
 
     const Pointer<LMesh> mesh = getLMesh(level_number);
     const std::vector<LNode*>& local_nodes = mesh->getLocalNodes();
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const int lag_idx = node_idx->getLagrangianIndex();
         if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
         {
@@ -1077,9 +1072,8 @@ LDataManager::reinitLagrangianStructure(const Point& X_center, const int structu
             {
                 LNodeSet::DataSet unmoved_idxs;
                 unmoved_idxs.reserve(node_set->size());
-                for (auto it = node_set->begin(); it != node_set->end(); ++it)
+                for (auto& node_idx : *node_set)
                 {
-                    LNodeSet::value_type& node_idx = *it;
                     const int lag_idx = node_idx->getLagrangianIndex();
                     if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
                     {
@@ -1156,9 +1150,8 @@ LDataManager::displaceLagrangianStructure(const Vector& dX, const int structure_
             {
                 LNodeSet::DataSet unmoved_idxs;
                 unmoved_idxs.reserve(node_set->size());
-                for (auto it = node_set->begin(); it != node_set->end(); ++it)
+                for (auto& node_idx : *node_set)
                 {
-                    LNodeSet::value_type& node_idx = *it;
                     const int lag_idx = node_idx->getLagrangianIndex();
                     if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
                     {
@@ -1193,9 +1186,9 @@ LDataManager::activateLagrangianStructures(const std::vector<int>& structure_ids
 #if !defined(NDEBUG)
     TBOX_ASSERT(d_coarsest_ln <= level_number && d_finest_ln >= level_number);
 #endif
-    for (auto cit = structure_ids.begin(); cit != structure_ids.end(); ++cit)
+    for (int structure_id : structure_ids)
     {
-        d_inactive_strcts[level_number].removeItem(*cit);
+        d_inactive_strcts[level_number].removeItem(structure_id);
     }
     d_inactive_strcts[level_number].communicateData();
     return;
@@ -1207,9 +1200,9 @@ LDataManager::inactivateLagrangianStructures(const std::vector<int>& structure_i
 #if !defined(NDEBUG)
     TBOX_ASSERT(d_coarsest_ln <= level_number && d_finest_ln >= level_number);
 #endif
-    for (auto cit = structure_ids.begin(); cit != structure_ids.end(); ++cit)
+    for (int structure_id : structure_ids)
     {
-        d_inactive_strcts[level_number].addItem(*cit);
+        d_inactive_strcts[level_number].addItem(structure_id);
     }
     d_inactive_strcts[level_number].communicateData();
     return;
@@ -1493,9 +1486,8 @@ LDataManager::beginDataRedistribution(const int coarsest_ln_in, const int finest
                 LNodeSet* const old_node_set = current_idx_data->getItem(old_cell_idx);
                 if (old_node_set)
                 {
-                    for (auto n = old_node_set->begin(); n != old_node_set->end(); ++n)
+                    for (auto& node_idx : *old_node_set)
                     {
-                        LNodeSet::value_type& node_idx = *n;
                         const int local_idx = node_idx->getLocalPETScIndex();
                         double* const X = &X_data[local_idx][0];
                         const CellIndex<NDIM> new_cell_idx = IndexUtilities::getCellIndex(X, grid_geom, ratio);
@@ -1644,12 +1636,10 @@ LDataManager::endDataRedistribution(const int coarsest_ln_in, const int finest_l
                 {
                     Pointer<LNodeTransaction> transaction = transactions[src_proc][dst_proc];
                     const std::vector<LNodeTransactionComponent>& dst_index_set = transaction->getDestinationData();
-                    for (auto cit = dst_index_set.begin();
-                         cit != dst_index_set.end();
-                         ++cit)
+                    for (const auto& cit : dst_index_set)
                     {
-                        d_displaced_strct_lnode_idxs[level_number].push_back(cit->item);
-                        d_displaced_strct_lnode_posns[level_number].push_back(cit->posn);
+                        d_displaced_strct_lnode_idxs[level_number].push_back(cit.item);
+                        d_displaced_strct_lnode_posns[level_number].push_back(cit.posn);
                     }
                 }
             }
@@ -1967,15 +1957,15 @@ LDataManager::endDataRedistribution(const int coarsest_ln_in, const int finest_l
         }
         d_ao[level_number] = new_ao[level_number];
 
-        for (auto it = src_IS[level_number].begin(); it != src_IS[level_number].end(); ++it)
+        for (auto& it : src_IS[level_number])
         {
-            ierr = ISDestroy(&it->second);
+            ierr = ISDestroy(&it.second);
             IBTK_CHKERRQ(ierr);
         }
 
-        for (auto it = dst_IS[level_number].begin(); it != dst_IS[level_number].end(); ++it)
+        for (auto& it : dst_IS[level_number])
         {
-            ierr = ISDestroy(&it->second);
+            ierr = ISDestroy(&it.second);
             IBTK_CHKERRQ(ierr);
         }
     }
@@ -2308,9 +2298,9 @@ LDataManager::initializeLevelData(const Pointer<BasePatchHierarchy<NDIM> > hiera
                     (*node_count_data)(i) = node_set.size();
                 }
 
-                for (auto n = node_set.begin(); n != node_set.end(); ++n)
+                for (auto& n : node_set)
                 {
-                    LNode* const node_idx = *n;
+                    LNode* const node_idx = n;
                     const int lag_idx = node_idx->getLagrangianIndex();
                     const int local_idx = node_idx->getLocalPETScIndex();
                     if (!(0 <= local_idx && local_idx < static_cast<int>(num_local_nodes)))
@@ -2598,12 +2588,10 @@ LDataManager::putToDatabase(Pointer<Database> db)
         }
 
         std::vector<std::string> ldata_names;
-        for (auto it = d_lag_mesh_data[level_number].begin();
-             it != d_lag_mesh_data[level_number].end();
-             ++it)
+        for (auto& it : d_lag_mesh_data[level_number])
         {
-            ldata_names.push_back(it->first);
-            it->second->putToDatabase(level_db->putDatabase(ldata_names.back()));
+            ldata_names.push_back(it.first);
+            it.second->putToDatabase(level_db->putDatabase(ldata_names.back()));
         }
         level_db->putInteger("n_ldata_names", static_cast<int>(ldata_names.size()));
         if (!ldata_names.empty())
@@ -2909,9 +2897,9 @@ LDataManager::beginNonlocalDataFill(const int coarsest_ln_in, const int finest_l
     for (int level_number = coarsest_ln; level_number <= finest_ln; ++level_number)
     {
         std::map<std::string, Pointer<LData> >& level_data = d_lag_mesh_data[level_number];
-        for (auto it = level_data.begin(); it != level_data.end(); ++it)
+        for (auto& it : level_data)
         {
-            it->second->beginGhostUpdate();
+            it.second->beginGhostUpdate();
         }
     }
 
@@ -2935,9 +2923,9 @@ LDataManager::endNonlocalDataFill(const int coarsest_ln_in, const int finest_ln_
     for (int level_number = coarsest_ln; level_number <= finest_ln; ++level_number)
     {
         std::map<std::string, Pointer<LData> >& level_data = d_lag_mesh_data[level_number];
-        for (auto it = level_data.begin(); it != level_data.end(); ++it)
+        for (auto& it : level_data)
         {
-            it->second->endGhostUpdate();
+            it.second->endGhostUpdate();
         }
     }
 
@@ -3274,9 +3262,8 @@ LDataManager::getFromRestart()
         }
 
         std::set<int> data_depths;
-        for (auto it = ldata_names.begin(); it != ldata_names.end(); ++it)
+        for (auto& ldata_name : ldata_names)
         {
-            const std::string& ldata_name = *it;
             d_lag_mesh_data[level_number][ldata_name] = new LData(level_db->getDatabase(ldata_name));
             data_depths.insert(d_lag_mesh_data[level_number][ldata_name]->getDepth());
         }

@@ -227,9 +227,9 @@ FEDataInterpolation::init(const bool use_IB_ghosted_vecs)
         const System& system = *d_systems[system_idx];
         const DofMap& system_dof_map = system.get_dof_map();
         const std::vector<int>& all_vars = d_system_all_vars[system_idx];
-        for (unsigned int k = 0; k < all_vars.size(); ++k)
+        for (int k : all_vars)
         {
-            fe_type_set.insert(system_dof_map.variable_type(all_vars[k]));
+            fe_type_set.insert(system_dof_map.variable_type(k));
         }
     }
     const size_t num_noninterp_systems = d_noninterp_systems.size();
@@ -238,9 +238,9 @@ FEDataInterpolation::init(const bool use_IB_ghosted_vecs)
         const System& system = *d_noninterp_systems[system_idx];
         const DofMap& system_dof_map = system.get_dof_map();
         const std::vector<int>& all_vars = d_noninterp_system_all_vars[system_idx];
-        for (unsigned int k = 0; k < all_vars.size(); ++k)
+        for (int k : all_vars)
         {
-            fe_type_set.insert(system_dof_map.variable_type(all_vars[k]));
+            fe_type_set.insert(system_dof_map.variable_type(k));
         }
     }
     d_fe_types.assign(fe_type_set.begin(), fe_type_set.end());
@@ -294,17 +294,17 @@ FEDataInterpolation::init(const bool use_IB_ghosted_vecs)
         const DofMap& system_dof_map = system.get_dof_map();
 
         const std::vector<int>& phi_vars = d_noninterp_system_phi_vars[system_idx];
-        for (unsigned int k = 0; k < phi_vars.size(); ++k)
+        for (int phi_var : phi_vars)
         {
-            const FEType& fe_type = system_dof_map.variable_type(phi_vars[k]);
+            const FEType& fe_type = system_dof_map.variable_type(phi_var);
             const size_t fe_type_idx = getFETypeIndex(fe_type);
             d_eval_phi[fe_type_idx] = true;
         }
 
         const std::vector<int>& dphi_vars = d_noninterp_system_dphi_vars[system_idx];
-        for (unsigned int k = 0; k < dphi_vars.size(); ++k)
+        for (int dphi_var : dphi_vars)
         {
-            const FEType& fe_type = system_dof_map.variable_type(dphi_vars[k]);
+            const FEType& fe_type = system_dof_map.variable_type(dphi_var);
             const size_t fe_type_idx = getFETypeIndex(fe_type);
             d_eval_dphi[fe_type_idx] = true;
         }

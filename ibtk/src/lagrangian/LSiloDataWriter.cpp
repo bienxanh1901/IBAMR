@@ -443,9 +443,8 @@ build_local_ucd_mesh(DBfile* dbfile,
 
     int offset = 0;
     std::map<int, int> local_vertex_map;
-    for (auto it = vertices.begin(); it != vertices.end(); ++it)
+    for (int idx : vertices)
     {
-        const int idx = (*it);
         local_vertex_map[idx] = offset;
 
         // Get the coordinate data.
@@ -472,9 +471,9 @@ build_local_ucd_mesh(DBfile* dbfile,
 
     // Prune duplicate edges.
     std::set<std::pair<int, int> > local_edge_set;
-    for (auto it = edge_map.begin(); it != edge_map.end(); ++it)
+    for (const auto& it : edge_map)
     {
-        std::pair<int, int> e = it->second;
+        std::pair<int, int> e = it.second;
 #if !defined(NDEBUG)
         TBOX_ASSERT(vertices.count(e.first) == 1);
         TBOX_ASSERT(vertices.count(e.second) == 1);
@@ -488,10 +487,10 @@ build_local_ucd_mesh(DBfile* dbfile,
 
     // Create an edge map corresponding to the pruned edge list.
     std::multimap<int, int> local_edge_map;
-    for (auto it = local_edge_set.begin(); it != local_edge_set.end(); ++it)
+    for (const auto& it : local_edge_set)
     {
-        const int e1 = it->first;
-        const int e2 = it->second;
+        const int e1 = it.first;
+        const int e2 = it.second;
         local_edge_map.insert(std::make_pair(local_vertex_map[e1], local_vertex_map[e2]));
     }
 
@@ -711,18 +710,18 @@ LSiloDataWriter::~LSiloDataWriter()
     int ierr;
     for (int ln = d_coarsest_ln; ln <= d_finest_ln; ++ln)
     {
-        for (auto it = d_dst_vec[ln].begin(); it != d_dst_vec[ln].end(); ++it)
+        for (auto& it : d_dst_vec[ln])
         {
-            Vec& v = it->second;
+            Vec& v = it.second;
             if (v)
             {
                 ierr = VecDestroy(&v);
                 IBTK_CHKERRQ(ierr);
             }
         }
-        for (auto it = d_vec_scatter[ln].begin(); it != d_vec_scatter[ln].end(); ++it)
+        for (auto& it : d_vec_scatter[ln])
         {
-            VecScatter& vs = it->second;
+            VecScatter& vs = it.second;
             if (vs)
             {
                 ierr = VecScatterDestroy(&vs);
@@ -759,18 +758,18 @@ LSiloDataWriter::resetLevels(const int coarsest_ln, const int finest_ln)
     int ierr;
     for (int ln = std::max(d_coarsest_ln, 0); (ln <= d_finest_ln) && (ln < coarsest_ln); ++ln)
     {
-        for (auto it = d_dst_vec[ln].begin(); it != d_dst_vec[ln].end(); ++it)
+        for (auto& it : d_dst_vec[ln])
         {
-            Vec& v = it->second;
+            Vec& v = it.second;
             if (v)
             {
                 ierr = VecDestroy(&v);
                 IBTK_CHKERRQ(ierr);
             }
         }
-        for (auto it = d_vec_scatter[ln].begin(); it != d_vec_scatter[ln].end(); ++it)
+        for (auto& it : d_vec_scatter[ln])
         {
-            VecScatter& vs = it->second;
+            VecScatter& vs = it.second;
             if (vs)
             {
                 ierr = VecScatterDestroy(&vs);
@@ -781,18 +780,18 @@ LSiloDataWriter::resetLevels(const int coarsest_ln, const int finest_ln)
 
     for (int ln = finest_ln + 1; ln <= d_finest_ln; ++ln)
     {
-        for (auto it = d_dst_vec[ln].begin(); it != d_dst_vec[ln].end(); ++it)
+        for (auto& it : d_dst_vec[ln])
         {
-            Vec& v = it->second;
+            Vec& v = it.second;
             if (v)
             {
                 ierr = VecDestroy(&v);
                 IBTK_CHKERRQ(ierr);
             }
         }
-        for (auto it = d_vec_scatter[ln].begin(); it != d_vec_scatter[ln].end(); ++it)
+        for (auto& it : d_vec_scatter[ln])
         {
-            VecScatter& vs = it->second;
+            VecScatter& vs = it.second;
             if (vs)
             {
                 ierr = VecScatterDestroy(&vs);
@@ -1109,9 +1108,9 @@ LSiloDataWriter::registerUnstructuredMesh(const std::string& name,
 
     // Extract the list of vertices from the list of edges.
     std::set<int> vertices;
-    for (auto it = edge_map.begin(); it != edge_map.end(); ++it)
+    for (const auto& it : edge_map)
     {
-        const std::pair<int, int>& e = it->second;
+        const std::pair<int, int>& e = it.second;
         vertices.insert(e.first);
         vertices.insert(e.second);
     }
@@ -2228,11 +2227,9 @@ LSiloDataWriter::putToDatabase(Pointer<Database> db)
 
                 std::vector<int> ucd_mesh_vertices_vector;
                 ucd_mesh_vertices_vector.reserve(d_ucd_mesh_vertices[ln][mesh].size());
-                for (auto cit = d_ucd_mesh_vertices[ln][mesh].begin();
-                     cit != d_ucd_mesh_vertices[ln][mesh].end();
-                     ++cit)
+                for (int cit : d_ucd_mesh_vertices[ln][mesh])
                 {
-                    ucd_mesh_vertices_vector.push_back(*cit);
+                    ucd_mesh_vertices_vector.push_back(cit);
                 }
                 db->putInteger("ucd_mesh_vertices_vector.size()" + ln_string + mesh_string,
                                static_cast<int>(ucd_mesh_vertices_vector.size()));
@@ -2354,10 +2351,10 @@ LSiloDataWriter::buildVecScatters(AO& ao, const int level_number)
     // Create the VecScatters to scatter data from the global PETSc Vec to
     // contiguous local subgrids.  VecScatter objects are individually created
     // for data depths as necessary.
-    for (auto it = src_is_idxs.begin(); it != src_is_idxs.end(); ++it)
+    for (auto& src_is_idx : src_is_idxs)
     {
-        const int depth = it->first;
-        const std::vector<int>& idxs = it->second;
+        const int depth = src_is_idx.first;
+        const std::vector<int>& idxs = src_is_idx.second;
         const auto  idxs_sz = static_cast<int>(idxs.size());
 
         IS src_is;

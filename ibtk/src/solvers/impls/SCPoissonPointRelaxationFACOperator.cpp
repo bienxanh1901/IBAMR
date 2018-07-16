@@ -511,12 +511,10 @@ SCPoissonPointRelaxationFACOperator::smoothError(SAMRAIVectorReal<NDIM, double>&
                 {
                     const std::map<int, Box<NDIM> > neighbor_overlap =
                         d_patch_neighbor_overlap[level_num][patch_counter][axis];
-                    for (auto cit = neighbor_overlap.begin();
-                         cit != neighbor_overlap.end();
-                         ++cit)
+                    for (const auto& cit : neighbor_overlap)
                     {
-                        const int src_patch_num = cit->first;
-                        const Box<NDIM>& overlap = cit->second;
+                        const int src_patch_num = cit.first;
+                        const Box<NDIM>& overlap = cit.second;
                         Pointer<Patch<NDIM> > src_patch = level->getPatch(src_patch_num);
                         Pointer<SideData<NDIM, double> > src_error_data = error.getComponentPatchData(0, *src_patch);
                         error_data->getArrayData(axis)

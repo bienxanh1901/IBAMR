@@ -586,9 +586,9 @@ PoissonFACPreconditionerStrategy::xeqScheduleProlongation(const int dst_idx, con
     d_bc_op->setPatchDataIndex(dst_idx);
     d_bc_op->setPhysicalBcCoefs(d_bc_coefs);
     d_bc_op->setHomogeneousBc(true);
-    for (unsigned int k = 0; k < d_bc_coefs.size(); ++k)
+    for (auto& d_bc_coef : d_bc_coefs)
     {
-        auto  extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coefs[k]);
+        auto extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coef);
         if (extended_bc_coef)
         {
             extended_bc_coef->setTargetPatchDataIndex(dst_idx);
@@ -600,9 +600,9 @@ PoissonFACPreconditionerStrategy::xeqScheduleProlongation(const int dst_idx, con
     refiner.resetSchedule(d_prolongation_refine_schedules[dst_ln]);
     d_prolongation_refine_schedules[dst_ln]->fillData(d_solution_time);
     d_prolongation_refine_algorithm->resetSchedule(d_prolongation_refine_schedules[dst_ln]);
-    for (unsigned int k = 0; k < d_bc_coefs.size(); ++k)
+    for (auto& d_bc_coef : d_bc_coefs)
     {
-        auto  extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coefs[k]);
+        auto extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coef);
         if (extended_bc_coef) extended_bc_coef->clearTargetPatchDataIndex();
     }
     return;
@@ -625,9 +625,9 @@ PoissonFACPreconditionerStrategy::xeqScheduleGhostFillNoCoarse(const int dst_idx
     d_bc_op->setPatchDataIndex(dst_idx);
     d_bc_op->setPhysicalBcCoefs(d_bc_coefs);
     d_bc_op->setHomogeneousBc(true);
-    for (unsigned int k = 0; k < d_bc_coefs.size(); ++k)
+    for (auto& d_bc_coef : d_bc_coefs)
     {
-        auto  extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coefs[k]);
+        auto extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coef);
         if (extended_bc_coef)
         {
             extended_bc_coef->setTargetPatchDataIndex(dst_idx);
@@ -639,9 +639,9 @@ PoissonFACPreconditionerStrategy::xeqScheduleGhostFillNoCoarse(const int dst_idx
     refiner.resetSchedule(d_ghostfill_nocoarse_refine_schedules[dst_ln]);
     d_ghostfill_nocoarse_refine_schedules[dst_ln]->fillData(d_solution_time);
     d_ghostfill_nocoarse_refine_algorithm->resetSchedule(d_ghostfill_nocoarse_refine_schedules[dst_ln]);
-    for (unsigned int k = 0; k < d_bc_coefs.size(); ++k)
+    for (auto& d_bc_coef : d_bc_coefs)
     {
-        auto  extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coefs[k]);
+        auto extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(d_bc_coef);
         if (extended_bc_coef) extended_bc_coef->clearTargetPatchDataIndex();
     }
     return;

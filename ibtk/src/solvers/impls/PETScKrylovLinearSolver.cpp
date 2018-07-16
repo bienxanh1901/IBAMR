@@ -755,9 +755,8 @@ PETScKrylovLinearSolver::resetMatNullspace()
             nullspace_vecs.push_back(d_petsc_nullspace_basis_vecs[k]);
         }
 
-        for (unsigned int k = 0; k < nullspace_vecs.size(); ++k)
+        for (auto petsc_nvec : nullspace_vecs)
         {
-            Vec petsc_nvec = nullspace_vecs[k];
             double norm;
             ierr = VecNorm(petsc_nvec, NORM_2, &norm);
             IBTK_CHKERRQ(ierr);
@@ -805,9 +804,9 @@ PETScKrylovLinearSolver::deallocateNullspaceData()
     {
         PETScSAMRAIVectorReal::destroyPETScVector(d_petsc_nullspace_constant_vec);
     }
-    for (unsigned int k = 0; k < d_petsc_nullspace_basis_vecs.size(); ++k)
+    for (auto& d_petsc_nullspace_basis_vec : d_petsc_nullspace_basis_vecs)
     {
-        PETScSAMRAIVectorReal::destroyPETScVector(d_petsc_nullspace_basis_vecs[k]);
+        PETScSAMRAIVectorReal::destroyPETScVector(d_petsc_nullspace_basis_vec);
     }
     d_petsc_nullspace_constant_vec = nullptr;
     d_petsc_nullspace_basis_vecs.clear();

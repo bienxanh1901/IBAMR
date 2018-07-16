@@ -1186,15 +1186,15 @@ PETScMatUtilities::constructPatchLevelASMSubdomains(std::vector<IS>& is_overlap,
                                                     Pointer<CoarseFineBoundary<NDIM> > cf_boundary)
 {
     int ierr;
-    for (unsigned int k = 0; k < is_overlap.size(); ++k)
+    for (auto& k : is_overlap)
     {
-        ierr = ISDestroy(&is_overlap[k]);
+        ierr = ISDestroy(&k);
         IBTK_CHKERRQ(ierr);
     }
     is_overlap.clear();
-    for (unsigned int k = 0; k < is_nonoverlap.size(); ++k)
+    for (auto& k : is_nonoverlap)
     {
-        ierr = ISDestroy(&is_nonoverlap[k]);
+        ierr = ISDestroy(&k);
         IBTK_CHKERRQ(ierr);
     }
     is_nonoverlap.clear();
