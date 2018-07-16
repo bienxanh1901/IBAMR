@@ -1223,11 +1223,8 @@ LDataManager::zeroInactivatedComponents(Pointer<LData> lag_data, const int level
     // Instead, it is a list of ALL of the inactivated indices.  Thus, idxs will
     // have the same contents for all MPI processes.
     std::vector<int> idxs;
-    for (auto cit = d_inactive_strcts[level_number].getSet().begin();
-         cit != d_inactive_strcts[level_number].getSet().end();
-         ++cit)
+    for (int strct_id : d_inactive_strcts[level_number].getSet())
     {
-        const int strct_id = *cit;
         const std::pair<int, int>& lag_index_range =
             d_strct_id_to_lag_idx_range_map[level_number].find(strct_id)->second;
         for (int l = lag_index_range.first; l < lag_index_range.second; ++l)
@@ -2559,13 +2556,11 @@ LDataManager::putToDatabase(Pointer<Database> db)
 
         std::vector<int> lstruct_ids, lstruct_lag_idx_range_first, lstruct_lag_idx_range_second, lstruct_activation;
         std::vector<std::string> lstruct_names;
-        for (auto it = d_strct_id_to_strct_name_map[level_number].begin();
-             it != d_strct_id_to_strct_name_map[level_number].end();
-             ++it)
+        for (auto & it : d_strct_id_to_strct_name_map[level_number])
         {
-            const int id = it->first;
+            const int id = it.first;
             lstruct_ids.push_back(id);
-            lstruct_names.push_back(it->second);
+            lstruct_names.push_back(it.second);
             lstruct_lag_idx_range_first.push_back(d_strct_id_to_lag_idx_range_map[level_number].find(id)->second.first);
             lstruct_lag_idx_range_second.push_back(
                 d_strct_id_to_lag_idx_range_map[level_number].find(id)->second.second);

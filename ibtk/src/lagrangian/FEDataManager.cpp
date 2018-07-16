@@ -2735,9 +2735,8 @@ FEDataManager::collectActivePatchElements(std::vector<std::vector<Elem*> >& acti
             frontier_elems.clear();
             if (local_elems.empty()) continue;
 
-            for (auto cit = local_elems.begin(); cit != local_elems.end(); ++cit)
+            for (auto elem : local_elems)
             {
-                const Elem* const elem = *cit;
                 for (unsigned int n = 0; n < elem->n_neighbors(); ++n)
                 {
                     Elem* const nghbr_elem = elem->neighbor(n);
