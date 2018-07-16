@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "ibtk/ibtk_utilities.h"
 #include "tbox/DescribedClass.h"

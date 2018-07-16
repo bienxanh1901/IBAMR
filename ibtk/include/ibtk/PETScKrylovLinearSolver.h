@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <iosfwd>
 #include <string>
 #include <vector>
@@ -198,7 +198,7 @@ public:
      *
      * \note If the preconditioner is NULL, no preconditioning is performed.
      */
-    void setPreconditioner(SAMRAI::tbox::Pointer<LinearSolver> pc_solver = NULL);
+    void setPreconditioner(SAMRAI::tbox::Pointer<LinearSolver> pc_solver = nullptr);
 
     /*!
      * \brief Set the nullspace of the linear system.

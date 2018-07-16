@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 
 #include "PatchLevel.h"
@@ -124,7 +124,7 @@ public:
                                 double data_time,
                                 bool initial_time = false,
                                 SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >
-                                    patch_level = SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(NULL)) = 0;
+                                    patch_level = SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(nullptr)) = 0;
 
     //\}
 

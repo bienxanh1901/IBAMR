@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "IntVector.h"
 #include "SAMRAIVectorReal.h"
@@ -118,7 +118,7 @@ public:
      *
      * \note If the preconditioner is NULL, no preconditioning is performed.
      */
-    virtual void setPreconditioner(SAMRAI::tbox::Pointer<LinearSolver> pc_solver = NULL);
+    virtual void setPreconditioner(SAMRAI::tbox::Pointer<LinearSolver> pc_solver = nullptr);
 
     /*!
      * \brief Retrieve the preconditioner used by the Krylov subspace method
