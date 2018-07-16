@@ -1151,9 +1151,9 @@ IBFEInstrumentPanel::outputNodes()
         if (SAMRAI_MPI::getRank() == 0)
         {
             stuff_stream.open(node_output.str().c_str());
-            for (unsigned int dd = 0; dd < d_nodes[ii].size(); ++dd)
+            for (auto & node : d_nodes[ii])
             {
-                stuff_stream << d_nodes[ii][dd](0) << " " << d_nodes[ii][dd](1) << " " << d_nodes[ii][dd](2) << "\n";
+                stuff_stream << node(0) << " " << node(1) << " " << node(2) << "\n";
             }
             stuff_stream.close();
         }

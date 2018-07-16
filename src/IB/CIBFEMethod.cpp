@@ -854,9 +854,9 @@ CIBFEMethod::copyVecToArray(Vec b,
 
     // Wrap the raw data in a PETSc Vec.
     PetscInt total_nodes = 0;
-    for (unsigned k = 0; k < struct_ids.size(); ++k)
+    for (unsigned int struct_id : struct_ids)
     {
-        total_nodes += getNumberOfNodes(struct_ids[k]);
+        total_nodes += getNumberOfNodes(struct_id);
     }
     PetscInt size = total_nodes * data_depth;
     int rank = SAMRAI_MPI::getRank();
@@ -871,9 +871,8 @@ CIBFEMethod::copyVecToArray(Vec b,
 
     // Scatter values
     PetscInt offset = 0;
-    for (unsigned k = 0; k < struct_ids.size(); ++k)
+    for (unsigned int struct_id : struct_ids)
     {
-        const unsigned struct_id = struct_ids[k];
         PetscInt nodes = getNumberOfNodes(struct_id);
         PetscInt size_vec = nodes * data_depth;
 
@@ -912,9 +911,9 @@ CIBFEMethod::copyArrayToVec(Vec b,
 
     // Wrap the raw data in a PETSc Vec.
     PetscInt total_nodes = 0;
-    for (unsigned k = 0; k < struct_ids.size(); ++k)
+    for (unsigned int struct_id : struct_ids)
     {
-        total_nodes += getNumberOfNodes(struct_ids[k]);
+        total_nodes += getNumberOfNodes(struct_id);
     }
     PetscInt size = total_nodes * data_depth;
     int rank = SAMRAI_MPI::getRank();
@@ -929,9 +928,8 @@ CIBFEMethod::copyArrayToVec(Vec b,
 
     // Scatter values
     PetscInt offset = 0;
-    for (unsigned k = 0; k < struct_ids.size(); ++k)
+    for (unsigned int struct_id : struct_ids)
     {
-        const unsigned struct_id = struct_ids[k];
         PetscInt nodes = getNumberOfNodes(struct_id);
         PetscInt size_vec = nodes * data_depth;
 

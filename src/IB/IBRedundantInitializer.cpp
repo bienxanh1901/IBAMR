@@ -832,8 +832,8 @@ IBRedundantInitializer::initializeInstrumentationData()
                 d_init_instrumentation_on_level_fcn(j, ln, new_names, d_instrument_idx[ln][j]);
                 std::vector<bool> encountered_instrument_idx;
                 std::map<int, std::vector<bool> > encountered_node_idxs;
-                for (auto i = new_names.begin(); i != new_names.end(); ++i)
-                    instrument_names.push_back(*i);
+                for (auto & new_name : new_names)
+                    instrument_names.push_back(new_name);
                 const int min_idx = 0;
                 const int max_idx = d_num_vertex[ln][j];
                 for (auto it = d_instrument_idx[ln][j].begin();
@@ -938,10 +938,10 @@ IBRedundantInitializer::initializeSourceData()
                                              << source_names.size() << " is not equal to number of radii "
                                              << source_radii.size() << ".\n");
                 }
-                for (auto i = new_names.begin(); i != new_names.end(); ++i)
-                    source_names.push_back(*i);
-                for (auto i = new_radii.begin(); i != new_radii.end(); ++i)
-                    source_radii.push_back(*i);
+                for (auto & new_name : new_names)
+                    source_names.push_back(new_name);
+                for (double & i : new_radii)
+                    source_radii.push_back(i);
                 num_source = new_names.size();
                 for (auto it = d_source_idx[ln][j].begin(); it != d_source_idx[ln][j].end();
                      ++it)
@@ -1078,9 +1078,9 @@ IBRedundantInitializer::initializeDataOnPatchLevel(const int lag_node_index_idx,
             // vertex.
             std::vector<Pointer<Streamable> > node_data =
                 initializeNodeData(point_idx, global_index_offset, level_number);
-            for (auto it = node_data.begin(); it != node_data.end(); ++it)
+            for (auto & it : node_data)
             {
-                (*it)->registerPeriodicShift(periodic_offset, periodic_displacement);
+                it->registerPeriodicShift(periodic_offset, periodic_displacement);
             }
 
             // Create or retrieve a pointer to the LNodeSet associated with the

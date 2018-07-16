@@ -80,9 +80,9 @@ resetLocalPETScIndices(std::vector<int>& inds, const int global_node_offset, con
 #if defined(NDEBUG)
     NULL_USE(num_local_nodes);
 #endif
-    for (auto it = inds.begin(); it != inds.end(); ++it)
+    for (int & idx : inds)
     {
-        int& idx = *it;
+        
 #if !defined(NDEBUG)
         TBOX_ASSERT(idx >= global_node_offset && idx < global_node_offset + num_local_nodes);
 #endif
@@ -97,9 +97,8 @@ resetLocalOrNonlocalPETScIndices(std::vector<int>& inds,
                                  const int num_local_nodes,
                                  const std::vector<int>& nonlocal_petsc_idxs)
 {
-    for (auto it = inds.begin(); it != inds.end(); ++it)
+    for (int & idx : inds)
     {
-        int& idx = *it;
         if (idx >= global_node_offset && idx < global_node_offset + num_local_nodes)
         {
             // A local node.
@@ -786,9 +785,8 @@ IBStandardForceGen::initializeSpringLevelData(std::set<int>& nonlocal_petsc_idx_
 
     // Determine how many springs are associated with the present MPI process.
     unsigned int num_springs = 0;
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBSpringForceSpec* const force_spec = node_idx->getNodeDataItem<IBSpringForceSpec>();
         if (force_spec) num_springs += force_spec->getNumberOfSprings();
     }
@@ -806,9 +804,8 @@ IBStandardForceGen::initializeSpringLevelData(std::set<int>& nonlocal_petsc_idx_
 
     // Setup the data structures used to compute spring forces.
     int current_spring = 0;
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBSpringForceSpec* const force_spec = node_idx->getNodeDataItem<IBSpringForceSpec>();
         if (!force_spec) continue;
 
@@ -852,9 +849,8 @@ IBStandardForceGen::initializeSpringLevelData(std::set<int>& nonlocal_petsc_idx_
     // NOTE: Only slave nodes can be "off processor".  Master nodes are
     // guaranteed to be "on processor".
     const int global_node_offset = l_data_manager->getGlobalNodeOffset(level_number);
-    for (unsigned int k = 0; k < petsc_slave_node_idxs.size(); ++k)
+    for (int idx : petsc_slave_node_idxs)
     {
-        const int idx = petsc_slave_node_idxs[k];
         if (UNLIKELY(idx < global_node_offset || idx >= global_node_offset + num_local_nodes))
         {
             nonlocal_petsc_idx_set.insert(idx);
@@ -1004,9 +1000,8 @@ IBStandardForceGen::initializeBeamLevelData(std::set<int>& nonlocal_petsc_idx_se
 
     // Determine how many beams are associated with the present MPI process.
     unsigned int num_beams = 0;
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBBeamForceSpec* const force_spec = node_idx->getNodeDataItem<IBBeamForceSpec>();
         if (force_spec) num_beams += force_spec->getNumberOfBeams();
     }
@@ -1021,9 +1016,8 @@ IBStandardForceGen::initializeBeamLevelData(std::set<int>& nonlocal_petsc_idx_se
 
     // Setup the data structures used to compute beam forces.
     int current_beam = 0;
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBBeamForceSpec* const force_spec = node_idx->getNodeDataItem<IBBeamForceSpec>();
         if (!force_spec) continue;
 
@@ -1222,9 +1216,8 @@ IBStandardForceGen::initializeTargetPointLevelData(std::set<int>& /*nonlocal_pet
     // Determine how many target points are associated with the present MPI
     // process.
     unsigned int num_target_points = 0;
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBTargetPointForceSpec* const force_spec = node_idx->getNodeDataItem<IBTargetPointForceSpec>();
         if (force_spec) num_target_points += 1;
     }
@@ -1239,9 +1232,8 @@ IBStandardForceGen::initializeTargetPointLevelData(std::set<int>& /*nonlocal_pet
 
     // Setup the data structures used to compute target point forces.
     int current_target_point = 0;
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBTargetPointForceSpec* const force_spec = node_idx->getNodeDataItem<IBTargetPointForceSpec>();
         if (!force_spec) continue;
         petsc_global_node_idxs[current_target_point] = petsc_node_idxs[current_target_point] =

@@ -146,9 +146,8 @@ inline short int
 get_dirichlet_bdry_ids(const std::vector<short int>& bdry_ids)
 {
     short int dirichlet_bdry_ids = 0;
-    for (auto cit = bdry_ids.begin(); cit != bdry_ids.end(); ++cit)
+    for (short bdry_id : bdry_ids)
     {
-        const short int bdry_id = *cit;
         if (bdry_id == FEDataManager::ZERO_DISPLACEMENT_X_BDRY_ID ||
             bdry_id == FEDataManager::ZERO_DISPLACEMENT_Y_BDRY_ID ||
             bdry_id == FEDataManager::ZERO_DISPLACEMENT_Z_BDRY_ID ||
@@ -171,9 +170,9 @@ is_physical_bdry(const Elem* elem,
 {
     const std::vector<short int>& bdry_ids = boundary_info.boundary_ids(elem, side);
     bool at_physical_bdry = !elem->neighbor(side);
-    for (auto cit = bdry_ids.begin(); cit != bdry_ids.end(); ++cit)
+    for (short bdry_id : bdry_ids)
     {
-        if (dof_map.is_periodic_boundary(*cit)) at_physical_bdry = false;
+        if (dof_map.is_periodic_boundary(bdry_id)) at_physical_bdry = false;
     }
     return at_physical_bdry;
 }
@@ -915,9 +914,9 @@ IBFEMethod::interpolateVelocity(const int u_data_idx,
     }
 
     // Communicate ghost data.
-    for (unsigned int k = 0; k < u_ghost_fill_scheds.size(); ++k)
+    for (const auto & u_ghost_fill_sched : u_ghost_fill_scheds)
     {
-        if (u_ghost_fill_scheds[k]) u_ghost_fill_scheds[k]->fillData(data_time);
+        if (u_ghost_fill_sched) u_ghost_fill_sched->fillData(data_time);
     }
     std::vector<Pointer<RefineSchedule<NDIM> > > no_fill(u_ghost_fill_scheds.size(), nullptr);
 
@@ -2386,11 +2385,11 @@ IBFEMethod::resetOverlapNodalValues(const unsigned int part,
     const unsigned int k_slave = 0;
     const unsigned int k_master = 1;
     std::map<dof_id_type, dof_id_type>& node_to_elem_map = d_overlap_velocity_part_node_to_elem_map[part_idx[k_slave]];
-    for (auto n = node_to_elem_map.begin(); n != node_to_elem_map.end(); ++n)
+    for (auto & n : node_to_elem_map)
     {
-        const Node* const node = mesh[k_slave]->node_ptr(n->first);
+        const Node* const node = mesh[k_slave]->node_ptr(n.first);
         const libMesh::Point& X = *node;
-        const Elem* const other_elem = mesh[k_master]->elem_ptr(n->second);
+        const Elem* const other_elem = mesh[k_master]->elem_ptr(n.second);
 
         // Read the velocity from the master mesh.
         for (unsigned int d = 0; d < NDIM; ++d)
@@ -2511,14 +2510,12 @@ IBFEMethod::computeOverlapConstraintForceDensity(std::vector<PetscVector<double>
                 fe[k]->reinit(elem);
                 get_values_for_interpolation(x_node[k], *X_vec[part_idx[k]], X_dof_indices[k]);
                 const size_t n_basis = phi.size();
-                for (auto qp_it = it->second.begin();
-                     qp_it != it->second.end();
-                     ++qp_it)
+                for (auto & qp_it : it->second)
                 {
-                    const unsigned int qp = qp_it->first;
+                    const unsigned int qp = qp_it.first;
                     const libMesh::Point& X = q_point[qp];
                     interpolate(x, qp, x_node[k], phi);
-                    const Elem* const other_elem = mesh[k_next]->elem_ptr(qp_it->second);
+                    const Elem* const other_elem = mesh[k_next]->elem_ptr(qp_it.second);
                     for (unsigned int d = 0; d < NDIM; ++d)
                     {
                         X_dof_map_cache[k_next]->dof_indices(other_elem, X_dof_indices[k_next][d], d);
@@ -3060,12 +3057,12 @@ IBFEMethod::imposeJumpConditions(const int f_data_idx,
 #if (NDIM == 3)
                         intersect_line_with_face(intersections, static_cast<Face*>(side_elem.get()), r, q);
 #endif
-                        for (unsigned int k = 0; k < intersections.size(); ++k)
+                        for (auto & intersection : intersections)
                         {
-                            libMesh::Point x = r + intersections[k].first * q;
+                            libMesh::Point x = r + intersection.first * q;
                             SideIndex<NDIM> i_s(i_c, axis, 0);
                             i_s(axis) = std::floor((x(axis) - x_lower[axis]) / dx[axis] + 0.5) + patch_lower[axis];
-                            intersection_ref_coords.push_back(intersections[k].second);
+                            intersection_ref_coords.push_back(intersection.second);
                             intersection_indices.push_back(i_s);
                             num_intersections(i_s) += 1;
                         }
