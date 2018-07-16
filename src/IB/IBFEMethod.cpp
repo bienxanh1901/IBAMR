@@ -536,11 +536,8 @@ IBFEMethod::registerOverlappingVelocityReset(const unsigned int part1, const uns
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 U_dof_map[k_master]->dof_indices(other_elem, U_dof_indices[k_master][d], d);
-                for (auto it = U_dof_indices[k_master][d].begin();
-                     it != U_dof_indices[k_master][d].end();
-                     ++it)
+                for (unsigned int idx : U_dof_indices[k_master][d])
                 {
-                    const unsigned int idx = *it;
                     if (idx < first_local_idx[k_master] || idx >= last_local_idx[k_master])
                     {
                         d_overlap_velocity_part_ghost_idxs[part_idx[k_master]].insert(idx);
@@ -644,11 +641,8 @@ IBFEMethod::registerOverlappingForceConstraint(const unsigned int part1,
             for (unsigned int d = 0; d < NDIM; ++d)
             {
                 X_dof_map[k]->dof_indices(elem, X_dof_indices[k][d], d);
-                for (auto it = X_dof_indices[k][d].begin();
-                     it != X_dof_indices[k][d].end();
-                     ++it)
+                for (unsigned int idx : X_dof_indices[k][d])
                 {
-                    const unsigned int idx = *it;
                     if (idx < first_local_idx[k] || idx >= last_local_idx[k])
                     {
                         d_overlap_force_part_ghost_idxs[part_idx[k]].insert(idx);
@@ -665,11 +659,8 @@ IBFEMethod::registerOverlappingForceConstraint(const unsigned int part1,
                     for (unsigned int d = 0; d < NDIM; ++d)
                     {
                         X_dof_map[k_next]->dof_indices(other_elem, X_dof_indices[k_next][d], d);
-                        for (auto it = X_dof_indices[k_next][d].begin();
-                             it != X_dof_indices[k_next][d].end();
-                             ++it)
+                        for (unsigned int idx : X_dof_indices[k_next][d])
                         {
-                            const unsigned int idx = *it;
                             if (idx < first_local_idx[k_next] || idx >= last_local_idx[k_next])
                             {
                                 d_overlap_force_part_ghost_idxs[part_idx[k_next]].insert(idx);
@@ -2495,12 +2486,9 @@ IBFEMethod::computeOverlapConstraintForceDensity(std::vector<PetscVector<double>
             const std::vector<libMesh::Point>& q_point = fe[k]->get_xyz();
             const std::vector<double>& JxW = fe[k]->get_JxW();
             const std::vector<std::vector<double> >& phi = fe[k]->get_phi();
-            for (auto it =
-                     elem_map[k].begin();
-                 it != elem_map[k].end();
-                 ++it)
+            for (auto & it : elem_map[k])
             {
-                const Elem* const elem = mesh[k]->elem_ptr(it->first);
+                const Elem* const elem = mesh[k]->elem_ptr(it.first);
                 for (unsigned int d = 0; d < NDIM; ++d)
                 {
                     F_dof_map_cache[k]->dof_indices(elem, F_dof_indices[k][d], d);
@@ -2510,7 +2498,7 @@ IBFEMethod::computeOverlapConstraintForceDensity(std::vector<PetscVector<double>
                 fe[k]->reinit(elem);
                 get_values_for_interpolation(x_node[k], *X_vec[part_idx[k]], X_dof_indices[k]);
                 const size_t n_basis = phi.size();
-                for (auto & qp_it : it->second)
+                for (auto & qp_it : it.second)
                 {
                     const unsigned int qp = qp_it.first;
                     const libMesh::Point& X = q_point[qp];

@@ -295,11 +295,11 @@ DirectMobilitySolver::registerStructIDsWithMobilityMat(const std::string& mat_na
     {
         TBOX_ASSERT(struct_id.size() == d_mat_prototype_id_map[mat_name].size());
         unsigned num_nodes = 0;
-        for (unsigned j = 0; j < struct_id.size(); ++j)
+        for (unsigned int j : struct_id)
         {
-            TBOX_ASSERT(struct_id[j] < d_cib_strategy->getNumberOfRigidStructures());
+            TBOX_ASSERT(j < d_cib_strategy->getNumberOfRigidStructures());
 
-            num_nodes += d_cib_strategy->getNumberOfNodes(struct_id[j]);
+            num_nodes += d_cib_strategy->getNumberOfNodes(j);
         }
         TBOX_ASSERT(num_nodes == d_mat_nodes_map[mat_name]);
     }

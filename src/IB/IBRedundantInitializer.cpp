@@ -397,11 +397,9 @@ IBRedundantInitializer::initializeSprings()
 
                 int min_idx = 0;
                 int max_idx = d_num_vertex[ln][j];
-                for (auto it = d_spring_edge_map[ln][j].begin();
-                     it != d_spring_edge_map[ln][j].end();
-                     ++it)
+                for (auto & it : d_spring_edge_map[ln][j])
                 {
-                    Edge& e = it->second;
+                    Edge& e = it.second;
                     const SpringSpec& spec = d_spring_spec_data[ln][j][e];
                     if ((e.first < min_idx) || (e.first > max_idx))
                     {
@@ -415,7 +413,7 @@ IBRedundantInitializer::initializeSprings()
                                                  << " and structure number " << j << ":\n"
                                                  << e.second << " is not a valid index.");
                     }
-                    if (it->first > e.second)
+                    if (it.first > e.second)
                     {
                         TBOX_ERROR(d_object_name << ":\n Error on level " << ln << " and structure number " << j
                                                  << ".\n Master index must be lower than the slave index for springs.");
@@ -454,11 +452,9 @@ IBRedundantInitializer::initializeXSprings()
                 d_init_xspring_on_level_fcn(j, ln, d_xspring_edge_map[ln][j], d_xspring_spec_data[ln][j]);
                 const int min_idx = 0;
                 const int max_idx = std::accumulate(d_num_vertex[ln].begin(), d_num_vertex[ln].end(), 0);
-                for (auto it = d_xspring_edge_map[ln][j].begin();
-                     it != d_xspring_edge_map[ln][j].end();
-                     ++it)
+                for (auto & it : d_xspring_edge_map[ln][j])
                 {
-                    Edge& e = it->second;
+                    Edge& e = it.second;
                     const XSpringSpec& spec = d_xspring_spec_data[ln][j][e];
                     if ((e.first < min_idx) || (e.first > max_idx))
                     {
@@ -472,7 +468,7 @@ IBRedundantInitializer::initializeXSprings()
                                                  << " and structure number " << j << ":\n"
                                                  << e.second << " is not a valid index.");
                     }
-                    if (it->first > e.second)
+                    if (it.first > e.second)
                     {
                         TBOX_ERROR(d_object_name
                                    << ":\n Error on level " << ln << " and structure number " << j
