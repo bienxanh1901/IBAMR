@@ -465,7 +465,7 @@ CartCellRobinPhysBdryOp::fillGhostCellValuesCodim1(const int patch_data_idx,
         for (int d = 0; d < patch_data_depth; ++d)
         {
             RobinBcCoefStrategy<NDIM>* bc_coef = d_bc_coefs[d];
-            ExtendedRobinBcCoefStrategy* const extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(bc_coef);
+            auto  const extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(bc_coef);
             if (extended_bc_coef)
             {
                 extended_bc_coef->setTargetPatchDataIndex(patch_data_idx);

@@ -798,7 +798,7 @@ CartCellDoubleQuadraticCFInterpolation::computeNormalExtension_expensive(Patch<N
                         i_intr1(bdry_normal_axis) = patch_upper(bdry_normal_axis) - 1;
                     }
 
-                    const double r = static_cast<double>(ratio(bdry_normal_axis));
+                    const auto  r = static_cast<double>(ratio(bdry_normal_axis));
                     const int i = (is_lower ? i_bdry(bdry_normal_axis) - patch_lower(bdry_normal_axis) :
                                               i_bdry(bdry_normal_axis) - patch_upper(bdry_normal_axis));
 

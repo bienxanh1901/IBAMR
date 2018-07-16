@@ -152,7 +152,7 @@ build_local_marker_cloud(DBfile* dbfile,
 
     // Write out the variables.
     int cycle = time_step;
-    float time = float(simulation_time);
+    auto  time = float(simulation_time);
     double dtime = simulation_time;
 
     static const int MAX_OPTS = 3;
@@ -318,7 +318,7 @@ build_local_curv_block(DBfile* dbfile,
 
     // Write out the variables.
     int cycle = time_step;
-    float time = float(simulation_time);
+    auto  time = float(simulation_time);
     double dtime = simulation_time;
 
     static const int MAX_OPTS = 3;
@@ -431,7 +431,7 @@ build_local_ucd_mesh(DBfile* dbfile,
                      const double simulation_time)
 {
     // Rearrange the data into the format required by Silo.
-    const int ntot = static_cast<int>(vertices.size());
+    const auto  ntot = static_cast<int>(vertices.size());
 
     std::vector<float> block_X(NDIM * ntot);
     std::vector<std::vector<float> > block_varvals(nvars);
@@ -508,7 +508,7 @@ build_local_ucd_mesh(DBfile* dbfile,
     int ndims = NDIM;
 
     int cycle = time_step;
-    float time = float(simulation_time);
+    auto  time = float(simulation_time);
     double dtime = simulation_time;
 
     static const int MAX_OPTS = 3;
@@ -535,12 +535,12 @@ build_local_ucd_mesh(DBfile* dbfile,
         nodelist.push_back(it->first);
         nodelist.push_back(it->second);
     }
-    int lnodelist = static_cast<int>(nodelist.size());
+    auto  lnodelist = static_cast<int>(nodelist.size());
     int nshapetypes = 1;
     int shapecnt[] = { static_cast<int>(local_edge_map.size()) };
     int shapesize[] = { 2 };
     int shapetype[] = { DB_ZONETYPE_BEAM };
-    int nzones = static_cast<int>(local_edge_map.size());
+    auto  nzones = static_cast<int>(local_edge_map.size());
 
     // Write out connectivity information.
     const int origin = 0;
@@ -1830,7 +1830,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
         }
 
         int cycle = time_step_number;
-        float time = float(simulation_time);
+        auto  time = float(simulation_time);
         double dtime = simulation_time;
 
         static const int MAX_OPTS = 3;
@@ -1853,7 +1853,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
                     std::ostringstream stream;
                     stream << current_file_name << ":level_" << ln << "_cloud_" << cloud << "/mesh";
                     std::string meshname = stream.str();
-                    char* meshname_ptr = const_cast<char*>(meshname.c_str());
+                    auto  meshname_ptr = const_cast<char*>(meshname.c_str());
                     int meshtype = DB_POINTMESH;
 
                     std::string& cloud_name = cloud_names_per_proc[ln][proc][cloud];
@@ -1879,7 +1879,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
                     std::ostringstream stream;
                     stream << current_file_name << ":level_" << ln << "_block_" << block << "/mesh";
                     std::string meshname = stream.str();
-                    char* meshname_ptr = const_cast<char*>(meshname.c_str());
+                    auto  meshname_ptr = const_cast<char*>(meshname.c_str());
                     int meshtype = meshtypes_per_proc[ln][proc][block];
 
                     std::string& block_name = block_names_per_proc[ln][proc][block];
@@ -1946,7 +1946,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
                     std::ostringstream stream;
                     stream << current_file_name << ":level_" << ln << "_mesh_" << mesh << "/mesh";
                     std::string meshname = stream.str();
-                    char* meshname_ptr = const_cast<char*>(meshname.c_str());
+                    auto  meshname_ptr = const_cast<char*>(meshname.c_str());
                     int meshtype = DB_UCDMESH;
 
                     std::string& mesh_name = ucd_mesh_names_per_proc[ln][proc][mesh];
@@ -1975,7 +1975,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
                         varname_stream << current_file_name << ":level_" << ln << "_cloud_" << cloud << "/"
                                        << d_var_names[ln][v];
                         std::string varname = varname_stream.str();
-                        char* varname_ptr = const_cast<char*>(varname.c_str());
+                        auto  varname_ptr = const_cast<char*>(varname.c_str());
                         int vartype = DB_POINTVAR;
 
                         std::string& cloud_name = cloud_names_per_proc[ln][proc][cloud];
@@ -1998,7 +1998,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
                         varname_stream << current_file_name << ":level_" << ln << "_block_" << block << "/"
                                        << d_var_names[ln][v];
                         std::string varname = varname_stream.str();
-                        char* varname_ptr = const_cast<char*>(varname.c_str());
+                        auto  varname_ptr = const_cast<char*>(varname.c_str());
                         int vartype = vartypes_per_proc[ln][proc][block];
 
                         std::string& block_name = block_names_per_proc[ln][proc][block];
@@ -2059,7 +2059,7 @@ LSiloDataWriter::writePlotData(const int time_step_number, const double simulati
                         varname_stream << current_file_name << ":level_" << ln << "_mesh_" << mesh << "/"
                                        << d_var_names[ln][v];
                         std::string varname = varname_stream.str();
-                        char* varname_ptr = const_cast<char*>(varname.c_str());
+                        auto  varname_ptr = const_cast<char*>(varname.c_str());
                         int vartype = DB_UCDVAR;
 
                         std::string& mesh_name = ucd_mesh_names_per_proc[ln][proc][mesh];
@@ -2358,7 +2358,7 @@ LSiloDataWriter::buildVecScatters(AO& ao, const int level_number)
     {
         const int depth = it->first;
         const std::vector<int>& idxs = it->second;
-        const int idxs_sz = static_cast<int>(idxs.size());
+        const auto  idxs_sz = static_cast<int>(idxs.size());
 
         IS src_is;
         ierr = ISCreateBlock(

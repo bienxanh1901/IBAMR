@@ -480,7 +480,7 @@ FEDataInterpolation::interpolateCommon(
         // Interpolate regular variables.
         {
             const std::vector<size_t>& var_idxs = d_system_var_idx[system_idx];
-            const unsigned int n_vars = static_cast<unsigned int>(var_idxs.size());
+            const auto  n_vars = static_cast<unsigned int>(var_idxs.size());
             for (unsigned int qp = 0; qp < n_qp; ++qp)
             {
                 system_var_data[qp][system_idx].resize(n_vars);
@@ -505,7 +505,7 @@ FEDataInterpolation::interpolateCommon(
         // Interpolate gradient variables.
         {
             const std::vector<size_t>& grad_var_idxs = d_system_grad_var_idx[system_idx];
-            const unsigned int n_grad_vars = static_cast<unsigned int>(grad_var_idxs.size());
+            const auto  n_grad_vars = static_cast<unsigned int>(grad_var_idxs.size());
             for (unsigned int qp = 0; qp < n_qp; ++qp)
             {
                 system_grad_var_data[qp][system_idx].resize(n_grad_vars);

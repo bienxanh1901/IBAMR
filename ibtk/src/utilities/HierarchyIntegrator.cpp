@@ -1148,7 +1148,7 @@ HierarchyIntegrator::putToDatabase(Pointer<Database> db)
     db->putDouble("d_integrator_time", d_integrator_time);
     db->putDouble("d_start_time", d_start_time);
     db->putDouble("d_end_time", d_end_time);
-    const int dt_previous_size = static_cast<int>(d_dt_previous.size());
+    const auto  dt_previous_size = static_cast<int>(d_dt_previous.size());
     db->putInteger("d_dt_previous_size", dt_previous_size);
     if (dt_previous_size > 0)
     {

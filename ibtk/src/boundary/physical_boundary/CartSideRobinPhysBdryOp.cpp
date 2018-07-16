@@ -564,7 +564,7 @@ CartSideRobinPhysBdryOp::fillGhostCellValuesCodim1Normal(const int patch_data_id
         for (int d = 0; d < patch_data_depth; ++d)
         {
             RobinBcCoefStrategy<NDIM>* bc_coef = d_bc_coefs[NDIM * d + bdry_normal_axis];
-            ExtendedRobinBcCoefStrategy* const extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(bc_coef);
+            auto  const extended_bc_coef = dynamic_cast<ExtendedRobinBcCoefStrategy*>(bc_coef);
             if (extended_bc_coef)
             {
                 extended_bc_coef->setTargetPatchDataIndex(patch_data_idx);
@@ -747,7 +747,7 @@ CartSideRobinPhysBdryOp::fillGhostCellValuesCodim1Transverse(const int patch_dat
                 for (int d = 0; d < patch_data_depth; ++d)
                 {
                     RobinBcCoefStrategy<NDIM>* bc_coef = d_bc_coefs[NDIM * d + axis];
-                    ExtendedRobinBcCoefStrategy* const extended_bc_coef =
+                    auto  const extended_bc_coef =
                         dynamic_cast<ExtendedRobinBcCoefStrategy*>(bc_coef);
                     if (extended_bc_coef)
                     {

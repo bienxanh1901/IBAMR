@@ -381,7 +381,7 @@ muParserCartGridFunction::setDataOnPatch(const int data_idx,
             for (unsigned int axis = 0; axis < NDIM; ++axis)
             {
                 int function_depth = -1;
-                const int parsers_size = static_cast<int>(d_parsers.size());
+                const auto  parsers_size = static_cast<int>(d_parsers.size());
                 const int fc_data_depth = fc_data->getDepth();
                 if (parsers_size == 1)
                 {
@@ -488,7 +488,7 @@ muParserCartGridFunction::setDataOnPatch(const int data_idx,
             for (unsigned int axis = 0; axis < NDIM; ++axis)
             {
                 int function_depth = -1;
-                const int parsers_size = static_cast<int>(d_parsers.size());
+                const auto  parsers_size = static_cast<int>(d_parsers.size());
                 const int sc_data_depth = sc_data->getDepth();
                 if (parsers_size == 1)
                 {
@@ -556,7 +556,7 @@ muParserCartGridFunction::setDataOnPatch(const int data_idx,
             for (unsigned int axis = 0; axis < NDIM; ++axis)
             {
                 int function_depth = -1;
-                const int parsers_size = static_cast<int>(d_parsers.size());
+                const auto  parsers_size = static_cast<int>(d_parsers.size());
                 const int ec_data_depth = ec_data->getDepth();
                 if (parsers_size == 1)
                 {

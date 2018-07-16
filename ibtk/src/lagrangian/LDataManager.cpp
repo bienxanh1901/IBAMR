@@ -2185,7 +2185,7 @@ LDataManager::initializeLevelData(const Pointer<BasePatchHierarchy<NDIM> > hiera
             hierarchy, level_number, init_data_time, can_be_refined, initial_time);
         const unsigned int num_local_nodes = d_lag_init->computeLocalNodeCountOnPatchLevel(
             hierarchy, level_number, init_data_time, can_be_refined, initial_time);
-        const unsigned int sum_num_local_nodes =
+        const auto  sum_num_local_nodes =
             static_cast<unsigned int>(SAMRAI_MPI::sumReduction(static_cast<int>(num_local_nodes)));
         if (num_global_nodes != sum_num_local_nodes)
         {
@@ -2330,7 +2330,7 @@ LDataManager::initializeLevelData(const Pointer<BasePatchHierarchy<NDIM> > hiera
                 }
             }
         }
-        const unsigned int num_initialized_global_nodes =
+        const auto  num_initialized_global_nodes =
             static_cast<unsigned int>(SAMRAI_MPI::sumReduction(static_cast<int>(local_nodes.size())));
         if (num_initialized_global_nodes != d_num_nodes[level_number])
         {
@@ -3061,8 +3061,8 @@ LDataManager::computeNodeDistribution(AO& ao,
 
     // Determine how many nodes are on each processor to calculate the PETSc
     // indexing scheme.
-    const unsigned int num_local_nodes = static_cast<unsigned int>(local_lag_indices.size());
-    const unsigned int num_nonlocal_nodes = static_cast<unsigned int>(nonlocal_lag_indices.size());
+    const auto  num_local_nodes = static_cast<unsigned int>(local_lag_indices.size());
+    const auto  num_nonlocal_nodes = static_cast<unsigned int>(nonlocal_lag_indices.size());
 
     if (local_offset != (num_local_nodes + num_nonlocal_nodes))
     {

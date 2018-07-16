@@ -297,7 +297,7 @@ LData::putToDatabase(Pointer<Database> db)
     TBOX_ASSERT(db);
 #endif
     const int num_local_nodes = getLocalNodeCount();
-    const int num_ghost_nodes = static_cast<int>(d_nonlocal_petsc_indices.size());
+    const auto  num_ghost_nodes = static_cast<int>(d_nonlocal_petsc_indices.size());
     db->putString("d_name", d_name);
     db->putInteger("d_depth", d_depth);
     db->putInteger("num_local_nodes", num_local_nodes);

@@ -527,7 +527,7 @@ void
 CCPoissonHypreLevelSolver::setMatrixCoefficients_aligned()
 {
     // Set matrix entries and copy them to the hypre matrix structures.
-    const int stencil_sz = static_cast<int>(d_stencil_offsets.size());
+    const auto  stencil_sz = static_cast<int>(d_stencil_offsets.size());
     std::vector<int> stencil_indices(stencil_sz);
     for (int i = 0; i < stencil_sz; ++i)
     {

@@ -2139,7 +2139,7 @@ LEInteractor::interpolate(double* const Q_data,
     std::vector<double> periodic_shifts(NDIM * local_indices.size());
 
     // Interpolate.
-    const int nindices = static_cast<int>(local_indices.size());
+    const auto  nindices = static_cast<int>(local_indices.size());
     if (nindices)
     {
         IntVector<NDIM> stencil_lower, stencil_upper;
@@ -2427,7 +2427,7 @@ LEInteractor::interpolate(double* const Q_data,
     std::vector<double> periodic_shifts(NDIM * local_indices.size());
 
     // Interpolate.
-    const int nindices = static_cast<int>(local_indices.size());
+    const auto  nindices = static_cast<int>(local_indices.size());
     if (nindices)
     {
         boost::array<double, NDIM> x_lower_axis, x_upper_axis;
@@ -3335,7 +3335,7 @@ LEInteractor::spread(Pointer<CellData<NDIM, double> > mask_data,
     std::vector<double> periodic_shifts(NDIM * local_indices.size());
 
     // Spread.
-    const int nindices = static_cast<int>(local_indices.size());
+    const auto  nindices = static_cast<int>(local_indices.size());
     if (nindices)
     {
         IntVector<NDIM> stencil_lower, stencil_upper;
@@ -3618,7 +3618,7 @@ LEInteractor::spread(Pointer<SideData<NDIM, double> > mask_data,
     std::vector<double> periodic_shifts(NDIM * local_indices.size());
 
     // Spread.
-    const int nindices = static_cast<int>(local_indices.size());
+    const auto  nindices = static_cast<int>(local_indices.size());
     if (nindices)
     {
         boost::array<double, NDIM> x_lower_axis, x_upper_axis;
@@ -3797,7 +3797,7 @@ LEInteractor::interpolate(double* const Q_data,
                    << "\n");
     }
     if (local_indices.empty()) return;
-    const int local_indices_size = static_cast<int>(local_indices.size());
+    const auto  local_indices_size = static_cast<int>(local_indices.size());
     const IntVector<NDIM>& ilower = q_data_box.lower();
     const IntVector<NDIM>& iupper = q_data_box.upper();
     if (interp_fcn == "PIECEWISE_CONSTANT")
@@ -4287,7 +4287,7 @@ LEInteractor::spread(double* const q_data,
                    << "\n");
     }
     if (local_indices.empty()) return;
-    const int local_indices_size = static_cast<int>(local_indices.size());
+    const auto  local_indices_size = static_cast<int>(local_indices.size());
     const IntVector<NDIM>& ilower = q_data_box.lower();
     const IntVector<NDIM>& iupper = q_data_box.upper();
     if (spread_fcn == "PIECEWISE_CONSTANT")

@@ -608,14 +608,14 @@ FEDataManager::spread(const int f_data_idx,
         F_dX_vec->close();
 
         // Extract local form vectors.
-        PetscVector<double>* F_dX_petsc_vec = static_cast<PetscVector<double>*>(F_dX_vec.get());
+        auto  F_dX_petsc_vec = static_cast<PetscVector<double>*>(F_dX_vec.get());
         Vec F_dX_global_vec = F_dX_petsc_vec->vec();
         Vec F_dX_local_vec;
         VecGhostGetLocalForm(F_dX_global_vec, &F_dX_local_vec);
         double* F_dX_local_soln;
         VecGetArray(F_dX_local_vec, &F_dX_local_soln);
 
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -700,14 +700,14 @@ FEDataManager::spread(const int f_data_idx,
     else
     {
         // Extract local form vectors.
-        PetscVector<double>* F_petsc_vec = static_cast<PetscVector<double>*>(&F_vec);
+        auto  F_petsc_vec = static_cast<PetscVector<double>*>(&F_vec);
         Vec F_global_vec = F_petsc_vec->vec();
         Vec F_local_vec;
         VecGhostGetLocalForm(F_global_vec, &F_local_vec);
         double* F_local_soln;
         VecGetArray(F_local_vec, &F_local_soln);
 
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -915,7 +915,7 @@ FEDataManager::prolongData(const int f_data_idx,
     // Communicate any unsynchronized ghost data and extract the underlying
     // solution data.
     if (close_F) F_vec.close();
-    PetscVector<double>* F_petsc_vec = static_cast<PetscVector<double>*>(&F_vec);
+    auto  F_petsc_vec = static_cast<PetscVector<double>*>(&F_vec);
     Vec F_global_vec = F_petsc_vec->vec();
     Vec F_local_vec;
     VecGhostGetLocalForm(F_global_vec, &F_local_vec);
@@ -923,7 +923,7 @@ FEDataManager::prolongData(const int f_data_idx,
     VecGetArray(F_local_vec, &F_local_soln);
 
     if (close_X) X_vec.close();
-    PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
+    auto  X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
     Vec X_global_vec = X_petsc_vec->vec();
     Vec X_local_vec;
     VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -1175,7 +1175,7 @@ FEDataManager::interpWeighted(const int f_data_idx,
     if (use_nodal_quadrature)
     {
         // Extract the local form vectors.
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -1272,7 +1272,7 @@ FEDataManager::interpWeighted(const int f_data_idx,
     else
     {
         // Extract local form vectors.
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -1536,7 +1536,7 @@ FEDataManager::restrictData(const int f_data_idx,
     // Communicate any unsynchronized ghost data and extract the underlying
     // solution data.
     if (close_X) X_vec.close();
-    PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
+    auto  X_petsc_vec = static_cast<PetscVector<double>*>(&X_vec);
     Vec X_global_vec = X_petsc_vec->vec();
     Vec X_local_vec;
     VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -1750,7 +1750,7 @@ FEDataManager::buildL2ProjectionSolver(const std::string& system_name)
             for (unsigned int var_num = 0; var_num < dof_map.n_variables(); ++var_num)
             {
                 dof_map_cache.dof_indices(elem, dof_indices, var_num);
-                const unsigned int dof_indices_sz = static_cast<unsigned int>(dof_indices.size());
+                const auto  dof_indices_sz = static_cast<unsigned int>(dof_indices.size());
                 M_e.resize(dof_indices_sz, dof_indices_sz);
                 const size_t n_basis = dof_indices.size();
                 const unsigned int n_qp = qrule->n_points();
@@ -1875,7 +1875,7 @@ FEDataManager::buildDiagonalL2MassMatrix(const std::string& system_name)
             for (unsigned int var_num = 0; var_num < dof_map.n_variables(); ++var_num)
             {
                 dof_map_cache.dof_indices(elem, dof_indices, var_num);
-                const unsigned int dof_indices_sz = static_cast<unsigned int>(dof_indices.size());
+                const auto  dof_indices_sz = static_cast<unsigned int>(dof_indices.size());
                 M_e.resize(dof_indices_sz, dof_indices_sz);
                 M_e_vec.resize(dof_indices_sz);
                 const size_t n_basis = dof_indices.size();
@@ -1976,8 +1976,8 @@ FEDataManager::computeL2Projection(NumericVector<double>& U_vec,
     {
         std::pair<libMesh::LinearSolver<double>*, SparseMatrix<double>*> proj_solver_components =
             buildL2ProjectionSolver(system_name);
-        PetscLinearSolver<double>* solver = static_cast<PetscLinearSolver<double>*>(proj_solver_components.first);
-        PetscMatrix<double>* M_mat = static_cast<PetscMatrix<double>*>(proj_solver_components.second);
+        auto  solver = static_cast<PetscLinearSolver<double>*>(proj_solver_components.first);
+        auto  M_mat = static_cast<PetscMatrix<double>*>(proj_solver_components.second);
         PetscBool rtol_set;
         double runtime_rtol;
         ierr = PetscOptionsGetReal(nullptr, "", "-ksp_rtol", &runtime_rtol, &rtol_set);
@@ -1997,7 +1997,7 @@ FEDataManager::computeL2Projection(NumericVector<double>& U_vec,
     }
     else
     {
-        PetscVector<double>* M_diag_vec = static_cast<PetscVector<double>*>(buildDiagonalL2MassMatrix(system_name));
+        auto  M_diag_vec = static_cast<PetscVector<double>*>(buildDiagonalL2MassMatrix(system_name));
         Vec M_diag_petsc_vec = M_diag_vec->vec();
         Vec U_petsc_vec = static_cast<PetscVector<double>*>(&U_vec)->vec();
         Vec F_petsc_vec = static_cast<PetscVector<double>*>(&F_vec)->vec();
@@ -2198,7 +2198,7 @@ FEDataManager::applyGradientDetector(const Pointer<BasePatchHierarchy<NDIM> > hi
         UniquePtr<NumericVector<double> > X_ghost_vec = NumericVector<double>::build(comm);
         X_ghost_vec->init(X_vec->size(), X_vec->local_size(), X_ghost_dofs, true, GHOSTED);
         X_vec->localize(*X_ghost_vec);
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec.get());
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec.get());
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -2443,7 +2443,7 @@ FEDataManager::updateQuadPointCountData(const int coarsest_ln, const int finest_
 
         // Extract the underlying solution data.
         NumericVector<double>* X_ghost_vec = buildGhostedCoordsVector();
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec);
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec);
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
@@ -2669,7 +2669,7 @@ FEDataManager::collectActivePatchElements(std::vector<std::vector<Elem*> >& acti
         collectGhostDOFIndices(X_ghost_dofs, frontier_elems, COORDINATES_SYSTEM_NAME);
         X_ghost_vec->init(X_vec->size(), X_vec->local_size(), X_ghost_dofs, true, GHOSTED);
         X_vec->localize(*X_ghost_vec);
-        PetscVector<double>* X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec.get());
+        auto  X_petsc_vec = static_cast<PetscVector<double>*>(X_ghost_vec.get());
         Vec X_global_vec = X_petsc_vec->vec();
         Vec X_local_vec;
         VecGhostGetLocalForm(X_global_vec, &X_local_vec);
