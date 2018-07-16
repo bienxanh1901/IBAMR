@@ -99,19 +99,19 @@ IBKirchhoffRodForceGen::IBKirchhoffRodForceGen(Pointer<Database> input_db)
 IBKirchhoffRodForceGen::~IBKirchhoffRodForceGen()
 {
     int ierr;
-    for (auto it = d_D_next_mats.begin(); it != d_D_next_mats.end(); ++it)
+    for (auto & d_D_next_mat : d_D_next_mats)
     {
-        if (*it)
+        if (d_D_next_mat)
         {
-            ierr = MatDestroy(&*it);
+            ierr = MatDestroy(&d_D_next_mat);
             IBTK_CHKERRQ(ierr);
         }
     }
-    for (auto it = d_X_next_mats.begin(); it != d_X_next_mats.end(); ++it)
+    for (auto & d_X_next_mat : d_X_next_mats)
     {
-        if (*it)
+        if (d_X_next_mat)
         {
-            ierr = MatDestroy(&*it);
+            ierr = MatDestroy(&d_X_next_mat);
             IBTK_CHKERRQ(ierr);
         }
     }
@@ -175,9 +175,8 @@ IBKirchhoffRodForceGen::initializeLevelData(const Pointer<PatchHierarchy<NDIM> >
 
     // Determine the "next" node indices for all rods associated with the
     // present MPI process.
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const IBRodForceSpec* const force_spec = node_idx->getNodeDataItem<IBRodForceSpec>();
         if (force_spec)
         {

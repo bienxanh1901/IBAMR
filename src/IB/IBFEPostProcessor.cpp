@@ -213,9 +213,9 @@ void
 IBFEPostProcessor::initializeFEData()
 {
     if (d_fe_data_initialized) return;
-    for (unsigned int k = 0; k < d_var_systems.size(); ++k)
+    for (auto & d_var_system : d_var_systems)
     {
-        System& system = *d_var_systems[k];
+        System& system = *d_var_system;
         system.assemble_before_solve = false;
         system.assemble();
     }

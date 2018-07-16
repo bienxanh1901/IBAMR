@@ -550,9 +550,8 @@ CIBMethod::initializePatchHierarchy(Pointer<PatchHierarchy<NDIM> > hierarchy,
 
         const Pointer<LMesh> mesh = d_l_data_manager->getLMesh(struct_ln);
         const std::vector<LNode*>& local_nodes = mesh->getLocalNodes();
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int local_idx = node_idx->getLocalPETScIndex();
             const Vector& displacement_0 = node_idx->getInitialPeriodicDisplacement();
             double* const X0_unshifted = &X0_unshifted_data_array[local_idx][0];
@@ -680,9 +679,8 @@ CIBMethod::forwardEulerStep(double current_time, double new_time)
 #if !defined(NDEBUG)
         TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int lag_idx = node_idx->getLagrangianIndex();
             const int local_idx = node_idx->getLocalPETScIndex();
             double* const X_half = &X_half_array[local_idx][0];
@@ -801,9 +799,8 @@ CIBMethod::midpointStep(double current_time, double new_time)
         TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
 
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int lag_idx = node_idx->getLagrangianIndex();
             const int local_idx = node_idx->getLocalPETScIndex();
             double* const X_new = &X_new_array[local_idx][0];
@@ -1122,9 +1119,8 @@ CIBMethod::setRigidBodyVelocity(const unsigned int part, const RigidDOFVector& U
         const Pointer<LMesh> mesh = d_l_data_manager->getLMesh(struct_ln);
         const std::vector<LNode*>& local_nodes = mesh->getLocalNodes();
         const std::pair<int, int>& part_idx_range = d_struct_lag_idx_range[part];
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int lag_idx = node_idx->getLagrangianIndex();
             if (part_idx_range.first <= lag_idx && lag_idx < part_idx_range.second)
             {
@@ -1178,9 +1174,8 @@ CIBMethod::computeNetRigidGeneralizedForce(const unsigned int part, Vec L, Rigid
     F.setZero();
     const Pointer<LMesh> mesh = d_l_data_manager->getLMesh(struct_ln);
     const std::vector<LNode*>& local_nodes = mesh->getLocalNodes();
-    for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+    for (auto node_idx : local_nodes)
     {
-        const LNode* const node_idx = *cit;
         const int lag_idx = node_idx->getLagrangianIndex();
         const int local_idx = node_idx->getLocalPETScIndex();
         const double* const P = &p_data_array[local_idx][0];
@@ -1384,9 +1379,9 @@ CIBMethod::constructMobilityMatrix(const std::string& /*mat_name*/,
 
     // Get the size of matrix.
     unsigned num_nodes = 0;
-    for (unsigned i = 0; i < prototype_struct_ids.size(); ++i)
+    for (unsigned int prototype_struct_id : prototype_struct_ids)
     {
-        num_nodes += getNumberOfNodes(prototype_struct_ids[i]);
+        num_nodes += getNumberOfNodes(prototype_struct_id);
     }
     const int size = num_nodes * NDIM;
 
@@ -1483,9 +1478,9 @@ CIBMethod::constructGeometricMatrix(const std::string& /*mat_name*/,
 
     // Get the size of matrix
     unsigned num_nodes = 0;
-    for (unsigned i = 0; i < prototype_struct_ids.size(); ++i)
+    for (unsigned int prototype_struct_id : prototype_struct_ids)
     {
-        num_nodes += getNumberOfNodes(prototype_struct_ids[i]);
+        num_nodes += getNumberOfNodes(prototype_struct_id);
     }
     int row_size = num_nodes * NDIM;
     int col_size = s_max_free_dofs * static_cast<int>(prototype_struct_ids.size());
@@ -1765,9 +1760,8 @@ CIBMethod::computeCOMOfStructures(std::vector<Eigen::Vector3d>& center_of_mass, 
         TBOX_ASSERT(structs_on_this_ln == d_num_rigid_parts);
 #endif
 
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int lag_idx = node_idx->getLagrangianIndex();
             const int local_idx = node_idx->getLocalPETScIndex();
             const double* const X = &X_data_array[local_idx][0];
@@ -1820,9 +1814,8 @@ CIBMethod::setRegularizationWeight(const int level_number)
         const std::pair<int, int>& lag_idx_range = d_struct_lag_idx_range[struct_no];
         if (d_reg_filename[struct_no].empty())
         {
-            for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+            for (auto node_idx : local_nodes)
             {
-                const LNode* const node_idx = *cit;
                 const int lag_idx = node_idx->getLagrangianIndex();
                 if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
                 {
@@ -1887,9 +1880,8 @@ CIBMethod::setRegularizationWeight(const int level_number)
             }
         }
 
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int lag_idx = node_idx->getLagrangianIndex();
             if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
             {
@@ -1990,9 +1982,8 @@ CIBMethod::setInitialLambda(const int level_number)
             }
         }
 
-        for (auto cit = local_nodes.begin(); cit != local_nodes.end(); ++cit)
+        for (auto node_idx : local_nodes)
         {
-            const LNode* const node_idx = *cit;
             const int lag_idx = node_idx->getLagrangianIndex();
             if (lag_idx_range.first <= lag_idx && lag_idx < lag_idx_range.second)
             {

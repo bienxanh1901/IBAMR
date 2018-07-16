@@ -677,9 +677,9 @@ AdvDiffPredictorCorrectorHierarchyIntegrator::postprocessIntegrateHierarchy(cons
     // Determine the CFL number.
     double cfl_max = 0.0;
     VariableDatabase<NDIM>* var_db = VariableDatabase<NDIM>::getDatabase();
-    for (unsigned int k = 0; k < d_u_var.size(); ++k)
+    for (const auto & u_var : d_u_var)
     {
-        const int u_new_idx = var_db->mapVariableAndContextToIndex(d_u_var[k], getNewContext());
+        const int u_new_idx = var_db->mapVariableAndContextToIndex(u_var, getNewContext());
         PatchFaceDataOpsReal<NDIM, double> patch_fc_ops;
         for (int ln = coarsest_ln; ln <= finest_ln; ++ln)
         {

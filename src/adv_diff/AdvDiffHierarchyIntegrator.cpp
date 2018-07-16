@@ -691,9 +691,9 @@ AdvDiffHierarchyIntegrator::getHelmholtzSolver(Pointer<CellVariable<NDIM, double
 void
 AdvDiffHierarchyIntegrator::setHelmholtzSolversNeedInit()
 {
-    for (auto it = d_Q_var.begin(); it != d_Q_var.end(); ++it)
+    for (auto & it : d_Q_var)
     {
-        setHelmholtzSolverNeedsInit(*it);
+        setHelmholtzSolverNeedsInit(it);
     }
     return;
 }
@@ -749,9 +749,9 @@ AdvDiffHierarchyIntegrator::getHelmholtzRHSOperator(Pointer<CellVariable<NDIM, d
 void
 AdvDiffHierarchyIntegrator::setHelmholtzRHSOperatorsNeedInit()
 {
-    for (auto it = d_Q_var.begin(); it != d_Q_var.end(); ++it)
+    for (auto & it : d_Q_var)
     {
-        setHelmholtzRHSOperatorNeedsInit(*it);
+        setHelmholtzRHSOperatorNeedsInit(it);
     }
     return;
 }
@@ -1056,11 +1056,9 @@ AdvDiffHierarchyIntegrator::initializeCompositeHierarchyDataSpecialized(double i
     }
 
     // Reset the desired transported quantities.
-    for (auto it = priority_Q_map.begin();
-         it != priority_Q_map.end();
-         ++it)
+    for (auto & it : priority_Q_map)
     {
-        Pointer<CellVariable<NDIM, double> > Q_var = it->second;
+        Pointer<CellVariable<NDIM, double> > Q_var = it.second;
         const int Q_current_idx = var_db->mapVariableAndContextToIndex(Q_var, getCurrentContext());
         for (unsigned k = 0; k < d_Q_reset_fcns[Q_var].size(); ++k)
         {
