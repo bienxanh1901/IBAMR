@@ -83,7 +83,7 @@ namespace mu
       ParserToken()
         :m_iCode(cmUNKNOWN)
         ,m_iType(tpVOID)
-        ,m_pTok(nullptr)
+        ,m_pTok(0)
         ,m_iIdx(-1)
         ,m_strTok()
         ,m_pCallback()
@@ -332,7 +332,7 @@ namespace mu
       */
       generic_fun_type GetFuncAddr() const
       {
-        return (m_pCallback.get()) ? (generic_fun_type)m_pCallback->GetAddr() : nullptr;
+        return (m_pCallback.get()) ? (generic_fun_type)m_pCallback->GetAddr() : 0;
       }
 
       //------------------------------------------------------------------------------
