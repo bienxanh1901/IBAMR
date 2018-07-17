@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <utility>
 #include <vector>
 
@@ -111,9 +111,9 @@ public:
      * \brief Alternative constructor.
      */
     IBBeamForceSpec(int master_idx,
-                    const std::vector<NeighborIdxs>& neighbor_idxs,
-                    const std::vector<double>& bend_rigidities,
-                    const std::vector<IBTK::Vector>& mesh_dependent_curvatures);
+                    std::vector<NeighborIdxs>  neighbor_idxs,
+                    std::vector<double>  bend_rigidities,
+                    std::vector<IBTK::Vector>  mesh_dependent_curvatures);
 
     /*!
      * \brief Destructor.

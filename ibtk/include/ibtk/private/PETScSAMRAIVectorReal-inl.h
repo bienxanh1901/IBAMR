@@ -64,7 +64,7 @@ PETScSAMRAIVectorReal::destroyPETScVector(Vec petsc_vec)
 {
     if (petsc_vec)
     {
-        PETScSAMRAIVectorReal* psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
+        auto  psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
 #if !defined(NDEBUG)
         TBOX_ASSERT(psv);
 #endif
@@ -80,7 +80,7 @@ PETScSAMRAIVectorReal::getSAMRAIVector(
 #if !defined(NDEBUG)
     TBOX_ASSERT(petsc_vec);
 #endif
-    PETScSAMRAIVectorReal* psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
+    auto  psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
 #if !defined(NDEBUG)
     TBOX_ASSERT(psv);
     TBOX_ASSERT(!psv->d_vector_checked_out_read);
@@ -97,7 +97,7 @@ PETScSAMRAIVectorReal::restoreSAMRAIVector(
 #if !defined(NDEBUG)
     TBOX_ASSERT(petsc_vec);
 #endif
-    PETScSAMRAIVectorReal* psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
+    auto  psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
 #if !defined(NDEBUG)
     TBOX_ASSERT(psv);
     TBOX_ASSERT(psv->d_vector_checked_out_read_write);
@@ -117,7 +117,7 @@ PETScSAMRAIVectorReal::getSAMRAIVectorRead(
 #if !defined(NDEBUG)
     TBOX_ASSERT(petsc_vec);
 #endif
-    PETScSAMRAIVectorReal* psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
+    auto  psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
 #if !defined(NDEBUG)
     TBOX_ASSERT(psv);
     TBOX_ASSERT(!psv->d_vector_checked_out_read_write);
@@ -134,7 +134,7 @@ PETScSAMRAIVectorReal::restoreSAMRAIVectorRead(
 #if !defined(NDEBUG)
     TBOX_ASSERT(petsc_vec);
 #endif
-    PETScSAMRAIVectorReal* psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
+    auto  psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
 #if !defined(NDEBUG)
     TBOX_ASSERT(psv);
     TBOX_ASSERT(psv->d_vector_checked_out_read);
@@ -153,7 +153,7 @@ PETScSAMRAIVectorReal::replaceSAMRAIVector(
     TBOX_ASSERT(petsc_vec);
     TBOX_ASSERT(samrai_vec);
 #endif
-    PETScSAMRAIVectorReal* psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
+    auto  psv = static_cast<PETScSAMRAIVectorReal*>(petsc_vec->data);
 #if !defined(NDEBUG)
     TBOX_ASSERT(psv);
 #endif

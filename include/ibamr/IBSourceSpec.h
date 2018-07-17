@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "ibtk/Streamable.h"
 #include "ibtk/StreamableFactory.h"

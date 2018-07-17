@@ -96,7 +96,7 @@ public:
      * \brief Constructor.
      */
     RelaxationLSMethod(const std::string& object_name,
-                       SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db = NULL,
+                       SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db = nullptr,
                        bool register_for_restart = true);
 
     /*!

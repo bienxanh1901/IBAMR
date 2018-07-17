@@ -228,7 +228,7 @@ template <class T>
 inline void
 LSet<T>::packStream(SAMRAI::tbox::AbstractStream& stream)
 {
-    int num_idx = static_cast<int>(d_set.size());
+    auto  num_idx = static_cast<int>(d_set.size());
     stream.pack(&num_idx, 1);
     for (unsigned int k = 0; k < d_set.size(); ++k)
     {
@@ -257,7 +257,7 @@ template <class T>
 inline void
 LSet<T>::putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> database)
 {
-    const int data_sz = static_cast<int>(getDataStreamSize());
+    const auto  data_sz = static_cast<int>(getDataStreamSize());
     FixedSizedStream stream(data_sz);
     packStream(stream);
     database->putInteger("data_sz", data_sz);

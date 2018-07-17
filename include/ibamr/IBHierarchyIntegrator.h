@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 
@@ -391,7 +391,7 @@ protected:
                             double data_time,
                             bool initial_time = false,
                             SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> > level =
-                                SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(NULL));
+                                SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(nullptr));
 
         //\}
 
@@ -465,7 +465,7 @@ protected:
                             double data_time,
                             bool initial_time = false,
                             SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> > level =
-                                SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(NULL));
+                                SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(nullptr));
 
         //\}
 

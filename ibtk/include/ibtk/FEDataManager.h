@@ -150,14 +150,14 @@ public:
         {
         }
 
-        InterpSpec(const std::string& kernel_fcn,
+        InterpSpec(std::string  kernel_fcn,
                    const libMesh::QuadratureType& quad_type,
                    const libMesh::Order& quad_order,
                    bool use_adaptive_quadrature,
                    double point_density,
                    bool use_consistent_mass_matrix,
                    bool use_nodal_quadrature)
-            : kernel_fcn(kernel_fcn),
+            : kernel_fcn(std::move(kernel_fcn)),
               quad_type(quad_type),
               quad_order(quad_order),
               use_adaptive_quadrature(use_adaptive_quadrature),
@@ -187,13 +187,13 @@ public:
         {
         }
 
-        SpreadSpec(const std::string& kernel_fcn,
+        SpreadSpec(std::string  kernel_fcn,
                    const libMesh::QuadratureType& quad_type,
                    const libMesh::Order& quad_order,
                    bool use_adaptive_quadrature,
                    double point_density,
                    bool use_nodal_quadrature)
-            : kernel_fcn(kernel_fcn),
+            : kernel_fcn(std::move(kernel_fcn)),
               quad_type(quad_type),
               quad_order(quad_order),
               use_adaptive_quadrature(use_adaptive_quadrature),

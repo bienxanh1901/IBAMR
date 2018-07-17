@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "ibtk/Streamable.h"
 #include "ibtk/StreamableFactory.h"
@@ -97,7 +97,7 @@ public:
     IBTargetPointForceSpec(int master_idx = -1,
                            double kappa_target = 0.0,
                            double eta_target = 0.0,
-                           const IBTK::Point& X_target = IBTK::Point::Zero());
+                           IBTK::Point  X_target = IBTK::Point::Zero());
 
     /*!
      * \brief Destructor.

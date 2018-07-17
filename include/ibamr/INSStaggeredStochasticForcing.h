@@ -33,7 +33,7 @@
 #ifndef included_IBAMR_INSStaggeredStochasticForcing
 #define included_IBAMR_INSStaggeredStochasticForcing
 
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 #include <vector>
 
@@ -128,7 +128,7 @@ public:
                         const double data_time,
                         const bool initial_time = false,
                         SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> > patch_level =
-                            SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(NULL));
+                            SAMRAI::tbox::Pointer<SAMRAI::hier::PatchLevel<NDIM> >(nullptr));
 
     //\}
 

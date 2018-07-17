@@ -35,7 +35,7 @@
 
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
-#include <stddef.h>
+#include <cstddef>
 #include <vector>
 
 #include "ibtk/Streamable.h"
@@ -96,7 +96,7 @@ public:
     MaterialPointSpec(int point_idx = -1,
                       double weight = 0.0,
                       libMesh::subdomain_id_type subdomain_id = 0,
-                      const std::vector<double>& internal_vars = std::vector<double>());
+                      std::vector<double>  internal_vars = std::vector<double>());
 
     /*!
      * \brief Destructor.

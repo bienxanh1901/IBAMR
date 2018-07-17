@@ -84,7 +84,7 @@ public:
           const SAMRAI::hier::IntVector<NDIM>& current_periodic_offset = SAMRAI::hier::IntVector<NDIM>(0),
           const Vector& initial_periodic_displacement = Vector::Zero(),
           const Vector& current_periodic_displacement = Vector::Zero(),
-          const std::vector<SAMRAI::tbox::Pointer<Streamable> >& node_data =
+          std::vector<SAMRAI::tbox::Pointer<Streamable> >  node_data =
               std::vector<SAMRAI::tbox::Pointer<Streamable> >());
 
     /*!

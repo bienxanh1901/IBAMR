@@ -79,8 +79,8 @@ public:
                int local_petsc_nidx = -1,
                const SAMRAI::hier::IntVector<NDIM>& initial_periodic_offset = SAMRAI::hier::IntVector<NDIM>(0),
                const SAMRAI::hier::IntVector<NDIM>& current_periodic_offset = SAMRAI::hier::IntVector<NDIM>(0),
-               const Vector& initial_periodic_displacement = Vector::Zero(),
-               const Vector& current_periodic_displacement = Vector::Zero());
+               Vector  initial_periodic_displacement = Vector::Zero(),
+               Vector  current_periodic_displacement = Vector::Zero());
 
     /*!
      * \brief Copy constructor.
