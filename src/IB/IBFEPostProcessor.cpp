@@ -53,7 +53,7 @@
 #include "ibtk/FEDataManager.h"
 #include "ibtk/LEInteractor.h"
 #include "ibtk/libmesh_utilities.h"
-#include "libmesh/auto_ptr.h"
+#include <memory>
 #include "libmesh/enum_fe_family.h"
 #include "libmesh/enum_order.h"
 #include "libmesh/equation_systems.h"

@@ -76,7 +76,7 @@
 #include "ibtk/RobinPhysBdryPatchStrategy.h"
 #include "ibtk/ibtk_utilities.h"
 #include "ibtk/libmesh_utilities.h"
-#include "libmesh/auto_ptr.h"
+#include <memory>
 #include "libmesh/boundary_info.h"
 #include "libmesh/compare_types.h"
 #include "libmesh/dense_vector.h"
@@ -235,10 +235,10 @@ assemble_poisson(EquationSystems& es, const std::string& /*system_name*/)
     const DofMap& dof_map = system.get_dof_map();
     FEType fe_type = dof_map.variable_type(0);
 
-    UniquePtr<FEBase> fe(FEBase::build(dim, fe_type));
+    std::unique_ptr<FEBase> fe(FEBase::build(dim, fe_type));
     QGauss qrule(dim, FIFTH);
     fe->attach_quadrature_rule(&qrule);
-    UniquePtr<FEBase> fe_face(FEBase::build(dim, fe_type));
+    std::unique_ptr<FEBase> fe_face(FEBase::build(dim, fe_type));
     QGauss qface(dim - 1, FIFTH);
     fe_face->attach_quadrature_rule(&qface);
 
@@ -487,7 +487,7 @@ IBFEMethod::registerOverlappingVelocityReset(const unsigned int part1, const uns
     boost::array<EquationSystems*, 2> es;
     boost::array<MeshBase*, 2> mesh;
     boost::array<const DofMap*, 2> U_dof_map, X_dof_map;
-    boost::array<UniquePtr<PointLocatorBase>, 2> ploc;
+    boost::array<std::unique_ptr<PointLocatorBase>, 2> ploc;
     boost::array<numeric_index_type, 2> first_local_idx, last_local_idx;
     for (int k = 0; k < 2; ++k)
     {
@@ -590,8 +590,8 @@ IBFEMethod::registerOverlappingForceConstraint(const unsigned int part1,
     boost::array<EquationSystems*, 2> es;
     boost::array<MeshBase*, 2> mesh;
     boost::array<const DofMap*, 2> F_dof_map, X_dof_map;
-    boost::array<UniquePtr<FEBase>, 2> fe;
-    boost::array<UniquePtr<PointLocatorBase>, 2> ploc;
+    boost::array<std::unique_ptr<FEBase>, 2> fe;
+    boost::array<std::unique_ptr<PointLocatorBase>, 2> ploc;
     boost::array<numeric_index_type, 2> first_local_idx, last_local_idx;
     for (int k = 0; k < 2; ++k)
     {
@@ -1154,7 +1154,7 @@ IBFEMethod::computeLagrangianFluidSource(double data_time)
         for (unsigned int d = 0; d < NDIM; ++d) vars[d] = d;
 
         FEDataInterpolation fe(dim, d_fe_data_managers[part]);
-        UniquePtr<QBase> qrule = QBase::build(QGAUSS, dim, FIFTH);
+        std::unique_ptr<QBase> qrule = QBase::build(QGAUSS, dim, FIFTH);
         fe.attachQuadratureRule(qrule.get());
         fe.evalQuadraturePoints();
         fe.evalQuadratureWeights();
@@ -1655,7 +1655,7 @@ IBFEMethod::computeStressNormalization(PetscVector<double>& Phi_vec,
     for (unsigned int d = 0; d < NDIM; ++d) X_vars[d] = d;
 
     FEDataInterpolation fe(dim, d_fe_data_managers[part]);
-    UniquePtr<QBase> qrule_face = QBase::build(QGAUSS, dim - 1, FIFTH);
+    std::unique_ptr<QBase> qrule_face = QBase::build(QGAUSS, dim - 1, FIFTH);
     fe.attachQuadratureRuleFace(qrule_face.get());
     fe.evalNormalsFace();
     fe.evalQuadraturePointsFace();
@@ -1856,7 +1856,7 @@ IBFEMethod::computeInteriorForceDensity(PetscVector<double>& G_vec,
     const unsigned int dim = mesh.mesh_dimension();
 
     // Setup global and elemental right-hand-side vectors.
-    UniquePtr<NumericVector<double> > G_rhs_vec = G_vec.zero_clone();
+    std::unique_ptr<NumericVector<double> > G_rhs_vec = G_vec.zero_clone();
     DenseVector<double> G_rhs_e[NDIM];
 
     // First handle the stress contributions.  These are handled separately because
@@ -1882,9 +1882,9 @@ IBFEMethod::computeInteriorForceDensity(PetscVector<double>& G_vec,
         for (unsigned int d = 0; d < NDIM; ++d) vars[d] = d;
 
         FEDataInterpolation fe(dim, d_fe_data_managers[part]);
-        UniquePtr<QBase> qrule =
+        std::unique_ptr<QBase> qrule =
             QBase::build(d_PK1_stress_fcn_data[part][k].quad_type, dim, d_PK1_stress_fcn_data[part][k].quad_order);
-        UniquePtr<QBase> qrule_face =
+        std::unique_ptr<QBase> qrule_face =
             QBase::build(d_PK1_stress_fcn_data[part][k].quad_type, dim - 1, d_PK1_stress_fcn_data[part][k].quad_order);
         fe.attachQuadratureRule(qrule.get());
         fe.attachQuadratureRuleFace(qrule_face.get());
@@ -2064,8 +2064,8 @@ IBFEMethod::computeInteriorForceDensity(PetscVector<double>& G_vec,
     std::vector<int> no_vars;
 
     FEDataInterpolation fe(dim, d_fe_data_managers[part]);
-    UniquePtr<QBase> qrule = QBase::build(d_default_quad_type[part], dim, d_default_quad_order[part]);
-    UniquePtr<QBase> qrule_face = QBase::build(d_default_quad_type[part], dim - 1, d_default_quad_order[part]);
+    std::unique_ptr<QBase> qrule = QBase::build(d_default_quad_type[part], dim, d_default_quad_order[part]);
+    std::unique_ptr<QBase> qrule_face = QBase::build(d_default_quad_type[part], dim - 1, d_default_quad_order[part]);
     fe.attachQuadratureRule(qrule.get());
     fe.attachQuadratureRuleFace(qrule_face.get());
     fe.evalNormalsFace();
@@ -2446,7 +2446,7 @@ IBFEMethod::computeOverlapConstraintForceDensity(std::vector<PetscVector<double>
         boost::array<const DofMap*, 2> F_dof_map, X_dof_map;
         boost::array<FEDataManager::SystemDofMapCache*, 2> F_dof_map_cache, X_dof_map_cache;
         FEType fe_type;
-        boost::array<UniquePtr<FEBase>, 2> fe;
+        boost::array<std::unique_ptr<FEBase>, 2> fe;
         for (int k = 0; k < 2; ++k)
         {
             es[k] = d_fe_data_managers[part_idx[k]]->getEquationSystems();
@@ -2560,7 +2560,7 @@ IBFEMethod::computeOverlapConstraintForceDensity(std::vector<PetscVector<double>
     {
         if (d_is_overlap_force_part[k])
         {
-            UniquePtr<NumericVector<double> > F_tmp_vec = F_vec[k]->zero_clone();
+            std::unique_ptr<NumericVector<double> > F_tmp_vec = F_vec[k]->zero_clone();
             d_fe_data_managers[k]->computeL2Projection(
                 *F_tmp_vec, *F_rhs_vec[k], FORCE_SYSTEM_NAME, d_use_consistent_mass_matrix);
             F_vec[k]->add(*F_tmp_vec);
@@ -2632,8 +2632,8 @@ IBFEMethod::spreadTransmissionForceDensity(const int f_data_idx,
     std::vector<int> no_vars;
 
     FEDataInterpolation fe(dim, d_fe_data_managers[part]);
-    UniquePtr<QBase> default_qrule_face = QBase::build(d_default_quad_type[part], dim - 1, d_default_quad_order[part]);
-    UniquePtr<QBase> qrule_face;
+    std::unique_ptr<QBase> default_qrule_face = QBase::build(d_default_quad_type[part], dim - 1, d_default_quad_order[part]);
+    std::unique_ptr<QBase> qrule_face;
     fe.attachQuadratureRuleFace(default_qrule_face.get());
     fe.evalNormalsFace();
     fe.evalQuadraturePointsFace();
@@ -2715,7 +2715,7 @@ IBFEMethod::spreadTransmissionForceDensity(const int f_data_idx,
                 if (is_dirichlet_bdry(elem, side, boundary_info, G_dof_map)) continue;
 
                 // Construct a side element.
-                UniquePtr<Elem> side_elem = elem->build_side(side, /*proxy*/ false);
+                std::unique_ptr<Elem> side_elem = elem->build_side(side, /*proxy*/ false);
                 const bool qrule_changed = d_fe_data_managers[part]->updateSpreadQuadratureRule(
                     qrule_face, d_spread_spec[part], side_elem.get(), X_node, patch_dx_min);
                 if (qrule_changed)
@@ -2893,7 +2893,7 @@ IBFEMethod::imposeJumpConditions(const int f_data_idx,
     std::vector<int> no_vars;
 
     FEDataInterpolation fe(dim, d_fe_data_managers[part]);
-    UniquePtr<QBase> qrule_face = QBase::build(d_default_quad_type[part], dim - 1, d_default_quad_order[part]);
+    std::unique_ptr<QBase> qrule_face = QBase::build(d_default_quad_type[part], dim - 1, d_default_quad_order[part]);
     fe.attachQuadratureRuleFace(qrule_face.get());
     fe.evalQuadraturePointsFace();
     fe.evalNormalsFace();
@@ -2982,7 +2982,7 @@ IBFEMethod::imposeJumpConditions(const int f_data_idx,
                 if (is_dirichlet_bdry(elem, side, boundary_info, G_dof_map)) continue;
 
                 // Construct a side element.
-                UniquePtr<Elem> side_elem = elem->build_side(side, /*proxy*/ false);
+                std::unique_ptr<Elem> side_elem = elem->build_side(side, /*proxy*/ false);
                 const unsigned int n_node_side = side_elem->n_nodes();
                 for (int d = 0; d < NDIM; ++d)
                 {

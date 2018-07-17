@@ -45,7 +45,7 @@
 #include "ibtk/FEDataInterpolation.h"
 #include "ibtk/FEDataManager.h"
 #include "ibtk/libmesh_utilities.h"
-#include "libmesh/auto_ptr.h"
+#include <memory>
 #include "libmesh/dof_map.h"
 #include "libmesh/enum_fe_family.h"
 #include "libmesh/enum_order.h"
@@ -172,7 +172,7 @@ IBFECentroidPostProcessor::reconstructVariables(double data_time)
     EquationSystems* equation_systems = d_fe_data_manager->getEquationSystems();
     const MeshBase& mesh = equation_systems->get_mesh();
     const int dim = mesh.mesh_dimension();
-    UniquePtr<QBase> qrule = QBase::build(QGAUSS, NDIM, CONSTANT);
+    std::unique_ptr<QBase> qrule = QBase::build(QGAUSS, NDIM, CONSTANT);
 
     // Set up all system data required to evaluate the mesh functions.
     FEDataInterpolation fe(dim, d_fe_data_manager);
