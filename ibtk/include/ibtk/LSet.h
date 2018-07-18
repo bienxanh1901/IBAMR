@@ -131,7 +131,7 @@ public:
     /*!
      * \brief Destructor.
      */
-    ~LSet();
+    ~LSet() override;
 
     /*!
      * \brief Assignment operator.

@@ -88,7 +88,7 @@ public:
     /*!
      * \brief Destructor.
      */
-    ~LMarker();
+    ~LMarker() override;
 
     /*!
      * \brief Assignment operator.

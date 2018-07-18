@@ -110,7 +110,7 @@ public:
      * The destructor for class HierarchyIntegrator unregisters the integrator
      * object with the restart manager when the object is so registered.
      */
-    ~HierarchyIntegrator();
+    ~HierarchyIntegrator() override;
 
     /*!
      * Return the name of the hierarchy integrator object.
@@ -448,7 +448,7 @@ public:
                              bool initial_time,
                              SAMRAI::tbox::Pointer<SAMRAI::hier::BasePatchLevel<NDIM> > old_level =
                                  SAMRAI::tbox::Pointer<SAMRAI::hier::BasePatchLevel<NDIM> >(nullptr),
-                             bool allocate_data = true);
+                             bool allocate_data = true) override final;
 
     /*!
      * Reset cached hierarchy dependent data.
@@ -462,7 +462,7 @@ public:
      */
     void resetHierarchyConfiguration(SAMRAI::tbox::Pointer<SAMRAI::hier::BasePatchHierarchy<NDIM> > hierarchy,
                                      int coarsest_level,
-                                     int finest_level);
+                                     int finest_level) override final;
 
     /*!
      * Set integer tags to "one" in cells where refinement of the given level
@@ -479,7 +479,7 @@ public:
                                double error_data_time,
                                int tag_index,
                                bool initial_time,
-                               bool uses_richardson_extrapolation_too);
+                               bool uses_richardson_extrapolation_too) override final;
 
     ///
     ///  Routines to access to the variable contexts maintained by the
@@ -590,7 +590,7 @@ public:
      * provided by class HierarchyIntegrator.  Instead, they should override the
      * protected virtual member function putToDatabaseSpecialized().
      */
-    void putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db);
+    void putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db) override final;
 
 protected:
     /*!

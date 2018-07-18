@@ -97,7 +97,7 @@ public:
     /*!
      * \brief Virtual destructor.
      */
-    virtual ~LNodeIndex();
+    ~LNodeIndex() override;
 
     /*!
      * \brief Assignment operator.

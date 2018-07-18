@@ -74,7 +74,7 @@ public:
     /*!
      * \brief Empty virtual destructor.
      */
-    virtual ~CartGridFunction();
+    ~CartGridFunction() override;
 
     /*!
      * \name Methods to set patch interior data.
@@ -142,7 +142,7 @@ private:
      *
      * \param from The value to copy to this object.
      */
-    CartGridFunction(const CartGridFunction& from);
+    CartGridFunction(const CartGridFunction& from) = delete;
 
     /*!
      * \brief Assignment operator.
@@ -153,7 +153,7 @@ private:
      *
      * \return A reference to this object.
      */
-    CartGridFunction& operator=(const CartGridFunction& that);
+    CartGridFunction& operator=(const CartGridFunction& that) = delete;
 };
 } // namespace IBTK
 

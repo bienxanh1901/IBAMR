@@ -129,15 +129,11 @@ generate_petsc_is_from_std_is(std::vector<std::set<int> >& overlap_std,
 
 PETScLevelSolver::PETScLevelSolver()
     : d_hierarchy(),
-      d_level_num(-1),
+
       d_ksp_type(KSPGMRES),
       d_shell_pc_type(""),
-      d_options_prefix(""),
-      d_petsc_ksp(nullptr),
-      d_petsc_mat(nullptr),
-      d_petsc_pc(nullptr),
-      d_petsc_x(nullptr),
-      d_petsc_b(nullptr)
+      d_options_prefix("")
+
 {
     // Setup default options.
     d_max_iterations = 10000;

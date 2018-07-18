@@ -105,7 +105,7 @@ public:
     /*!
      * \brief Virtual destructor.
      */
-    virtual ~LData();
+    ~LData() override;
 
     /*!
      * \brief Reset data items.
@@ -295,7 +295,7 @@ public:
     /*!
      * \brief Write out object state to the given database.
      */
-    void putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db);
+    void putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db) override;
 
 private:
     /*!
@@ -303,7 +303,7 @@ private:
      *
      * \note This constructor is not implemented and should not be used.
      */
-    LData();
+    LData() = delete;
 
     /*!
      * \brief Copy constructor.
@@ -312,7 +312,7 @@ private:
      *
      * \note This constructor is not implemented and should not be used.
      */
-    LData(const LData& from);
+    LData(const LData& from) = delete;
 
     /*
      * Extract the array data.

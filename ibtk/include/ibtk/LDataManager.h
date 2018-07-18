@@ -843,7 +843,7 @@ public:
                              bool initial_time,
                              SAMRAI::tbox::Pointer<SAMRAI::hier::BasePatchLevel<NDIM> > old_level =
                                  SAMRAI::tbox::Pointer<SAMRAI::hier::BasePatchLevel<NDIM> >(nullptr),
-                             bool allocate_data = true);
+                             bool allocate_data = true) override;
 
     /*!
      * Reset cached communication schedules after the hierarchy has changed (for
@@ -862,7 +862,7 @@ public:
      */
     void resetHierarchyConfiguration(SAMRAI::tbox::Pointer<SAMRAI::hier::BasePatchHierarchy<NDIM> > hierarchy,
                                      int coarsest_ln,
-                                     int finest_ln);
+                                     int finest_ln) override;
 
     /*!
      * Set integer tags to "one" in cells where refinement of the given level
@@ -887,14 +887,14 @@ public:
                                double error_data_time,
                                int tag_index,
                                bool initial_time,
-                               bool uses_richardson_extrapolation_too);
+                               bool uses_richardson_extrapolation_too) override;
 
     /*!
      * Write out object state to the given database.
      *
      * When assertion checking is active, database pointer must be non-null.
      */
-    void putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db);
+    void putToDatabase(SAMRAI::tbox::Pointer<SAMRAI::tbox::Database> db) override;
 
     /*!
      * Register user defined Lagrangian data to be maintained
@@ -918,7 +918,7 @@ protected:
      * \brief The LDataManager destructor cleans up any remaining PETSc AO
      * objects.
      */
-    ~LDataManager();
+    ~LDataManager() override;
 
 private:
     /*!
