@@ -541,12 +541,12 @@ protected:
     /*!
      * The IBHierarchyIntegrator object that is using this strategy class.
      */
-    IBHierarchyIntegrator* d_ib_solver;
+    IBHierarchyIntegrator* d_ib_solver = nullptr;
 
     /*!
      * Whether to use "fixed" Lagrangian-Eulerian coupling operators.
      */
-    bool d_use_fixed_coupling_ops;
+    bool d_use_fixed_coupling_ops = false;
 
 private:
     /*!
@@ -556,7 +556,7 @@ private:
      *
      * \param from The value to copy to this object.
      */
-    IBStrategy(const IBStrategy& from);
+    IBStrategy(const IBStrategy& from) = delete;
 
     /*!
      * \brief Assignment operator.
@@ -567,7 +567,7 @@ private:
      *
      * \return A reference to this object.
      */
-    IBStrategy& operator=(const IBStrategy& that);
+    IBStrategy& operator=(const IBStrategy& that) = delete;
 };
 } // namespace IBAMR
 

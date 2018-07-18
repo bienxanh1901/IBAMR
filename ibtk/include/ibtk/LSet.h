@@ -273,7 +273,7 @@ private:
     /*!
      * \brief The collection of data items.
      */
-    typename LSet<T>::DataSet d_set;
+    typename LSet<T>::DataSet d_set = 0;
 
     /*!
      * \brief The periodic offset.

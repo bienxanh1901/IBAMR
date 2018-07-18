@@ -192,7 +192,8 @@ private:
      *
      * \note This constructor is not implemented and should not be used.
      */
-    StaggeredStokesBlockPreconditioner();
+    StaggeredStokesBlockPreconditioner() = delete = delete = delete = delete = delete = delete = delete = delete =
+        delete = delete = delete = delete = delete = delete = delete = delete;
 
     /*!
      * \brief Copy constructor.
@@ -201,7 +202,9 @@ private:
      *
      * \param from The value to copy to this object.
      */
-    StaggeredStokesBlockPreconditioner(const StaggeredStokesBlockPreconditioner& from);
+    StaggeredStokesBlockPreconditioner(const StaggeredStokesBlockPreconditioner& from) = delete = delete = delete =
+        delete = delete = delete = delete = delete = delete = delete = delete = delete = delete = delete = delete =
+            delete;
 
     /*!
      * \brief Assignment operator.
@@ -212,7 +215,9 @@ private:
      *
      * \return A reference to this object.
      */
-    StaggeredStokesBlockPreconditioner& operator=(const StaggeredStokesBlockPreconditioner& that);
+    StaggeredStokesBlockPreconditioner&
+    operator=(const StaggeredStokesBlockPreconditioner& that) = delete = delete = delete = delete = delete = delete =
+        delete = delete = delete = delete = delete = delete = delete = delete = delete = delete;
 };
 } // namespace IBAMR
 

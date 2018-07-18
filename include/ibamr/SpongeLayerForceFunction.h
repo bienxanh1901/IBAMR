@@ -125,7 +125,7 @@ private:
      *
      * \note This constructor is not implemented and should not be used.
      */
-    SpongeLayerForceFunction();
+    SpongeLayerForceFunction() = delete;
 
     /*!
      * \brief Copy constructor.
@@ -134,7 +134,7 @@ private:
      *
      * \param from The value to copy to this object.
      */
-    SpongeLayerForceFunction(const SpongeLayerForceFunction& from);
+    SpongeLayerForceFunction(const SpongeLayerForceFunction& from) = delete;
 
     /*!
      * \brief Assignment operator.
@@ -145,7 +145,7 @@ private:
      *
      * \return A reference to this object.
      */
-    SpongeLayerForceFunction& operator=(const SpongeLayerForceFunction& that);
+    SpongeLayerForceFunction& operator=(const SpongeLayerForceFunction& that) = delete;
 
     /*!
      * Set the data on the patch interior.

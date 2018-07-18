@@ -210,7 +210,7 @@ private:
      *
      * \param from The value to copy to this object.
      */
-    IBSpringForceSpec(const IBSpringForceSpec& from);
+    IBSpringForceSpec(const IBSpringForceSpec& from) = delete;
 
     /*!
      * \brief Assignment operator.
@@ -221,12 +221,12 @@ private:
      *
      * \return A reference to this object.
      */
-    IBSpringForceSpec& operator=(const IBSpringForceSpec& that);
+    IBSpringForceSpec& operator=(const IBSpringForceSpec& that) = delete;
 
     /*!
      * Data required to define the spring forces.
      */
-    int d_master_idx;
+    int d_master_idx = -1;
     std::vector<int> d_slave_idxs, d_force_fcn_idxs;
     std::vector<std::vector<double> > d_parameters;
 
@@ -276,7 +276,7 @@ private:
          *
          * \param from The value to copy to this object.
          */
-        Factory(const Factory& from);
+        Factory(const Factory& from) = delete;
 
         /*!
          * \brief Assignment operator.
@@ -287,7 +287,7 @@ private:
          *
          * \return A reference to this object.
          */
-        Factory& operator=(const Factory& that);
+        Factory& operator=(const Factory& that) = delete;
 
         friend class IBSpringForceSpec;
     };

@@ -143,7 +143,7 @@ private:
      *
      * \note This constructor is not implemented and should not be used.
      */
-    AdvDiffStochasticForcing();
+    AdvDiffStochasticForcing() = delete;
 
     /*!
      * \brief Copy constructor.
@@ -152,7 +152,7 @@ private:
      *
      * \param from The value to copy to this object.
      */
-    AdvDiffStochasticForcing(const AdvDiffStochasticForcing& from);
+    AdvDiffStochasticForcing(const AdvDiffStochasticForcing& from) = delete;
 
     /*!
      * \brief Assignment operator.
@@ -163,7 +163,7 @@ private:
      *
      * \return A reference to this object.
      */
-    AdvDiffStochasticForcing& operator=(const AdvDiffStochasticForcing& that);
+    AdvDiffStochasticForcing& operator=(const AdvDiffStochasticForcing& that) = delete;
 
     /*!
      * Pointer to the concentration variable associated with this source term

@@ -46,8 +46,7 @@ namespace IBTK
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 template <class T>
-inline LSet<T>::LSet()
-    : d_set(), d_offset(0)
+inline LSet<T>::LSet() : d_offset(0)
 {
     // intentionally blank
     return;
