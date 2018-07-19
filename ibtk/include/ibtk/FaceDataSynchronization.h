@@ -36,6 +36,7 @@
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "CartesianGridGeometry.h"
@@ -81,8 +82,8 @@ public:
         /*!
          * \brief Default constructor.
          */
-        inline SynchronizationTransactionComponent(int data_idx = -1, const std::string& coarsen_op_name = "NONE")
-            : d_data_idx(data_idx), d_coarsen_op_name(coarsen_op_name)
+        inline SynchronizationTransactionComponent(int data_idx = -1, std::string coarsen_op_name = "NONE")
+            : d_data_idx(data_idx), d_coarsen_op_name(std::move(coarsen_op_name))
         {
             // intentionally blank
             return;

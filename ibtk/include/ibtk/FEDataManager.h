@@ -113,9 +113,7 @@ public:
         {
         }
 
-        inline ~SystemDofMapCache()
-        {
-        }
+        ~SystemDofMapCache() = default;
 
         inline void
         dof_indices(const libMesh::Elem* const elem, std::vector<unsigned int>& dof_indices, const unsigned int var = 0)
@@ -146,9 +144,7 @@ public:
      */
     struct InterpSpec
     {
-        InterpSpec()
-        {
-        }
+        InterpSpec() = default;
 
         InterpSpec(std::string  kernel_fcn,
                    const libMesh::QuadratureType& quad_type,
@@ -183,9 +179,7 @@ public:
      */
     struct SpreadSpec
     {
-        SpreadSpec()
-        {
-        }
+        SpreadSpec() = default;
 
         SpreadSpec(std::string  kernel_fcn,
                    const libMesh::QuadratureType& quad_type,
