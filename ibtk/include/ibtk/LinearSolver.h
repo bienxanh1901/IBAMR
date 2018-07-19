@@ -120,13 +120,13 @@ public:
     /*!
      * \brief Print class data to stream.
      */
-    void printClassData(std::ostream& stream) override
+    void printClassData(std::ostream& stream) override;
 
-        //\}
+    //\}
 
-        protected :
-        // Solver parameters.
-        bool d_initial_guess_nonzero = true;
+protected:
+    // Solver parameters.
+    bool d_initial_guess_nonzero = true;
 
     // Nullspace data.
     bool d_nullspace_contains_constant_vec = false;

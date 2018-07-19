@@ -174,8 +174,7 @@ private:
      *
      * \note This constructor is not implemented and should not be used.
      */
-    StaggeredStokesBlockFactorizationPreconditioner() = delete = delete = delete = delete = delete = delete = delete =
-        delete = delete = delete = delete = delete = delete = delete = delete = delete;
+    StaggeredStokesBlockFactorizationPreconditioner() = delete;
 
     /*!
      * \brief Copy constructor.
@@ -185,8 +184,7 @@ private:
      * \param from The value to copy to this object.
      */
     StaggeredStokesBlockFactorizationPreconditioner(const StaggeredStokesBlockFactorizationPreconditioner& from) =
-        delete = delete = delete = delete = delete = delete = delete = delete = delete = delete = delete = delete =
-            delete = delete = delete = delete;
+        delete;
 
     /*!
      * \brief Assignment operator.
@@ -198,8 +196,7 @@ private:
      * \return A reference to this object.
      */
     StaggeredStokesBlockFactorizationPreconditioner&
-    operator=(const StaggeredStokesBlockFactorizationPreconditioner& that) = delete = delete = delete = delete =
-        delete = delete = delete = delete = delete = delete = delete = delete = delete = delete = delete = delete;
+    operator=(const StaggeredStokesBlockFactorizationPreconditioner& that) = delete;
 
     /*!
      * \brief Solve the pressure subsystem.

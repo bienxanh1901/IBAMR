@@ -201,7 +201,7 @@ LNode::copySourceItem(const SAMRAI::hier::Index<NDIM>& src_index,
                       const LNodeIndex& src_item)
 {
     LNodeIndex::copySourceItem(src_index, src_offset, src_item);
-    const auto  const p_src_item = dynamic_cast<const LNode*>(&src_item);
+    auto const p_src_item = dynamic_cast<const LNode*>(&src_item);
 #if !defined(NDEBUG)
     TBOX_ASSERT(p_src_item);
 #endif

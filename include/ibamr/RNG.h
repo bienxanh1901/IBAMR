@@ -22,7 +22,7 @@ private:
     RNG() = delete;
     RNG(RNG&) = delete;
     ~RNG() = delete;
-    RNG& operator=(RNG&) delete;
+    RNG& operator=(RNG&) = delete;
 };
 } // namespace IBAMR
 
