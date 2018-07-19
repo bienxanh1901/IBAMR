@@ -51,7 +51,9 @@
 #include "ibtk/libmesh_utilities.h"
 #include "libmesh/enum_fe_family.h"
 #include "libmesh/enum_order.h"
+#include "libmesh/enum_point_locator_type.h"
 #include "libmesh/enum_quadrature_type.h"
+#include "libmesh/enum_xdr_mode.h"
 #include "tbox/Pointer.h"
 
 namespace IBTK
