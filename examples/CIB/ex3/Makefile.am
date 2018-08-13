@@ -9,13 +9,11 @@ EXTRA_DIST  = input2d.nozzle nozzle2d.vertex input2d.test
 EXAMPLES =
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI2D_ENABLED
 if GTEST_ENABLED
 GTESTS   += test2d
 endif
 EXAMPLES += main2d
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

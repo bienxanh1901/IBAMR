@@ -12,13 +12,11 @@ EXTRA_DIST += fila_1024.vertex fila_1024.spring fila_1024.beam fila_1024.target
 EXAMPLES =
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI2D_ENABLED
 EXAMPLES += main2d
 if GTEST_ENABLED
 GTESTS   += test2d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

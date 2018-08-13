@@ -9,13 +9,11 @@ EXTRA_DIST  = input2d cylinder2d.vertex petsc_options.dat
 EXTRA_PROGRAMS =
 EXAMPLES =
 GTESTS =
-if SAMRAI2D_ENABLED
 EXAMPLES += main2d
 if GTEST_ENABLED
 GTESTS += test2d
 endif
 EXTRA_PROGRAMS += $(EXAMPLES) $(GTESTS)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

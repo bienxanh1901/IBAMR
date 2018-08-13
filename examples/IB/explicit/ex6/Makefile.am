@@ -13,13 +13,11 @@ EXTRA_DIST += curve2d_64.spring curve2d_128.spring curve2d_256.spring curve2d_51
 EXAMPLES =
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI2D_ENABLED
 EXAMPLES += main2d
 if GTEST_ENABLED
 GTESTS += test2d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

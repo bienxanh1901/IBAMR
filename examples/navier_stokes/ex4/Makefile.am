@@ -9,20 +9,16 @@ EXTRA_DIST     = input2d input3d input2d.test input3d.test
 EXAMPLES = 
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI2D_ENABLED
 if GTEST_ENABLED
 GTESTS   += test2d
 endif
 EXAMPLES += main2d
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
-if SAMRAI3D_ENABLED
 EXAMPLES += main3d
 if GTEST_ENABLED
 GTESTS   += test3d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

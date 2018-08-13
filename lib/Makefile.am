@@ -2,12 +2,8 @@
 include $(top_srcdir)/config/Make-rules
 
 lib_LIBRARIES = libIBAMR.a
-if SAMRAI2D_ENABLED
-  lib_LIBRARIES += libIBAMR2d.a
-endif
-if SAMRAI3D_ENABLED
-  lib_LIBRARIES += libIBAMR3d.a
-endif
+lib_LIBRARIES += libIBAMR2d.a
+lib_LIBRARIES += libIBAMR3d.a
 
 all-local: $(lib_LIBRARIES)
 	for file in "lib*.a" ; do \

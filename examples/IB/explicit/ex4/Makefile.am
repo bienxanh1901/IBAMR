@@ -11,13 +11,11 @@ EXTRA_DIST += curve3d_64.vertex curve3d_64.rod curve3d_64.director
 EXAMPLES =
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI3D_ENABLED
 EXAMPLES += main3d
 if GTEST_ENABLED
 GTESTS   += test3d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main3d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=3
 main3d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR3d_LIBS) $(IBAMR_LIBS)

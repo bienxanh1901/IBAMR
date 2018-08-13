@@ -15,20 +15,16 @@ EXTRA_DIST += sphere3d_32.spring sphere3d_64.spring sphere3d_128.spring sphere3d
 EXAMPLES =
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI2D_ENABLED
 EXAMPLES += main2d
 if GTEST_ENABLED
 GTESTS   += test2d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
-if SAMRAI3D_ENABLED
 EXAMPLES += main3d
 if GTEST_ENABLED
 GTESTS   += test3d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

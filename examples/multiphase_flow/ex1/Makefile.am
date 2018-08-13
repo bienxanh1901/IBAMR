@@ -10,13 +10,11 @@ EXTRA_DIST     = input2d.cyl input2d.test input2d_free_fall.cyl
 EXAMPLES =
 GTESTS   =
 EXTRA_PROGRAMS =
-if SAMRAI2D_ENABLED
 EXAMPLES += main2d
 if GTEST_ENABLED
 GTESTS   += test2d
 endif
 EXTRA_PROGRAMS += $(GTESTS) $(EXAMPLES)
-endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
 main2d_LDADD = $(IBAMR_LDFLAGS) $(IBAMR2d_LIBS) $(IBAMR_LIBS)

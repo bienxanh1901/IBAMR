@@ -11,20 +11,16 @@ EXTRA_PROGRAMS =
 EXAMPLES =
 GTESTS = 
 if LIBMESH_ENABLED 
-if SAMRAI2D_ENABLED
 EXAMPLES += main2d convergence_tester2d
 if GTEST_ENABLED
 GTESTS   += test2d
 endif
 EXTRA_PROGRAMS += $(EXAMPLES) $(GTESTS)
-endif
-if SAMRAI3D_ENABLED
 EXAMPLES += main3d convergence_tester3d
 if GTEST_ENABLED
 GTESTS   += test3d
 endif
 EXTRA_PROGRAMS += $(EXAMPLES) $(GTESTS)
-endif
 endif
 
 main2d_CXXFLAGS = $(AM_CXXFLAGS) -DNDIM=2
