@@ -67,6 +67,7 @@
 #include "ibtk/PhysicalBoundaryUtilities.h"
 #include "tbox/Timer.h"
 #include "tbox/TimerManager.h"
+#include "tbox/MathUtilities.h"
 #include "tbox/Utilities.h"
 
 namespace SAMRAI

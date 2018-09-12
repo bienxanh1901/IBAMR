@@ -44,6 +44,7 @@
 #include "CellData.h"
 #include "CellIndex.h"
 #include "CellIterator.h"
+#include "EdgeData.h"
 #include "FaceData.h"
 #include "FaceIndex.h"
 #include "FaceIterator.h"

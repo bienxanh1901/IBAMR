@@ -41,6 +41,9 @@
 #include "Eigen/Geometry"
 #include "RobinBcCoefStrategy.h"
 #include "tbox/Serializable.h"
+#include "CellVariable.h"
+#include "SideVariable.h"
+#include "SideIndex.h"
 #include <ibtk/LData.h>
 #include <ibtk/LDataManager.h>
 #include <ibtk/ibtk_utilities.h>

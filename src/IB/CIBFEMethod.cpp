@@ -42,6 +42,8 @@
 #include "libmesh/equation_systems.h"
 #include "libmesh/petsc_matrix.h"
 #include "libmesh/system.h"
+#include "tbox/MathUtilities.h"
+#include "tbox/RestartManager.h"
 
 namespace IBAMR
 {

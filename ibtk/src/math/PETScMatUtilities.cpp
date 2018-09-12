@@ -46,6 +46,7 @@
 #include "CellData.h"
 #include "CellGeometry.h"
 #include "CellIndex.h"
+#include "CellVariable.h"
 #include "CoarseFineBoundary.h"
 #include "Index.h"
 #include "IntVector.h"
@@ -56,6 +57,7 @@
 #include "SideData.h"
 #include "SideGeometry.h"
 #include "SideIndex.h"
+#include "SideVariable.h"
 #include "boost/array.hpp"
 #include "ibtk/IBTK_CHKERRQ.h"
 #include "ibtk/IndexUtilities.h"
@@ -71,6 +73,7 @@
 #include "tbox/Array.h"
 #include "tbox/Pointer.h"
 #include "tbox/SAMRAI_MPI.h"
+#include "tbox/MathUtilities.h"
 #include "tbox/Utilities.h"
 
 namespace SAMRAI

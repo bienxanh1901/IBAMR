@@ -61,6 +61,8 @@
 #include "tbox/Array.h"
 #include "tbox/Database.h"
 #include "tbox/Pointer.h"
+#include "tbox/MemoryDatabase.h"
+#include "tbox/TimerManager.h"
 #include "tbox/Utilities.h"
 #include "ibamr/ibamr_utilities.h"
 #include "ibamr/namespaces.h" // IWYU pragma: keep

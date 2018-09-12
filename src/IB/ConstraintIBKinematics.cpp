@@ -33,6 +33,7 @@
 /////////////////////////////////// INCLUDES /////////////////////////////////////
 
 #include <string>
+#include "tbox/RestartManager.h"
 #include "tbox/Utilities.h"
 #include "ibamr/namespaces.h"
 #include "ibamr/ConstraintIBKinematics.h"

@@ -45,6 +45,7 @@
 #include "ibtk/IBTK_CHKERRQ.h"
 #include "ibtk/PETScSAMRAIVectorReal.h"
 #include "petsc/private/petscimpl.h"
+#include "tbox/MathUtilities.h"
 #include "tbox/Timer.h"
 #include "tbox/TimerManager.h"
 

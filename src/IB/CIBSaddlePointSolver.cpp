@@ -54,6 +54,8 @@
 #include "ibtk/ibtk_utilities.h"
 #include "petsc/private/petscimpl.h"
 #include "tbox/TimerManager.h"
+#include "tbox/MathUtilities.h"
+#include "tbox/MemoryDatabase.h"
 
 namespace IBAMR
 {

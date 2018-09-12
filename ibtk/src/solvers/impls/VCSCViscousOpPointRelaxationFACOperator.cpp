@@ -50,6 +50,8 @@
 #include "IBTK_config.h"
 #include "IntVector.h"
 #include "MultiblockDataTranslator.h"
+#include "NodeData.h"
+#include "EdgeData.h"
 #include "Patch.h"
 #include "PatchDescriptor.h"
 #include "PatchHierarchy.h"

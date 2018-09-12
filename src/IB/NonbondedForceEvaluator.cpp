@@ -36,6 +36,9 @@
 #include "ibamr/namespaces.h"
 #include "ibtk/LNodeSetData.h"
 
+#include "CartesianGridGeometry.h"
+#include "CartesianPatchGeometry.h"
+
 /////////////////////////////// NAMESPACE ////////////////////////////////////
 
 namespace IBAMR

@@ -37,6 +37,8 @@
 #include "ibamr/namespaces.h"
 #include "ibtk/IBTK_CHKERRQ.h"
 #include "libmesh/equation_systems.h"
+#include "tbox/MathUtilities.h"
+#include "tbox/RestartManager.h"
 
 /////////////////////////////// NAMESPACE ////////////////////////////////////
 

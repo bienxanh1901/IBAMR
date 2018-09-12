@@ -50,6 +50,8 @@
 #include "ibtk/SCPoissonSolverManager.h"
 #include "ibtk/ibtk_utilities.h"
 #include "petsc/private/petscimpl.h"
+#include "tbox/MemoryDatabase.h"
+#include "tbox/MathUtilities.h"
 #include "tbox/TimerManager.h"
 
 namespace IBAMR

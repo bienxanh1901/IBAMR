@@ -33,6 +33,7 @@
 /////////////////////////////// INCLUDES /////////////////////////////////////
 
 #include "ibamr/FastSweepingLSMethod.h"
+#include "CartesianPatchGeometry.h"
 #include "CellVariable.h"
 #include "HierarchyCellDataOpsReal.h"
 #include "IBAMR_config.h"

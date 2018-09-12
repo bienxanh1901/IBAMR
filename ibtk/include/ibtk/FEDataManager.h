@@ -48,6 +48,7 @@
 #include "IntVector.h"
 #include "LoadBalancer.h"
 #include "PatchHierarchy.h"
+#include "RefineAlgorithm.h"
 #include "RefineSchedule.h"
 #include "SideVariable.h"
 #include "StandardTagAndInitStrategy.h"

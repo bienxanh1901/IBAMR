@@ -38,6 +38,7 @@
 #include "Box.h"
 #include "CartesianGridGeometry.h"
 #include "CartesianPatchGeometry.h"
+#include "CellData.h"
 #include "Index.h"
 #include "IntVector.h"
 #include "Patch.h"

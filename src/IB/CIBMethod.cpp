@@ -38,6 +38,7 @@
 #include "ibamr/StokesSpecifications.h"
 #include "ibamr/namespaces.h"
 #include "ibtk/LSiloDataWriter.h"
+#include "tbox/RestartManager.h"
 
 namespace IBAMR
 {

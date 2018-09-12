@@ -58,6 +58,7 @@
 #include "SideData.h"
 #include "SideGeometry.h"
 #include "SideIndex.h"
+#include "SideVariable.h"
 #include "Variable.h"
 #include "boost/array.hpp"
 #include "ibamr/StaggeredStokesPETScMatUtilities.h"
